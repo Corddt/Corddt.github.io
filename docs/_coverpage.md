@@ -1,6 +1,7 @@
 <!-- _coverpage.md -->
 
-![logo](_media/logo.jpg)
+![logo](_media/logo.png)
+
 
 # Corddt <small>ChenXi</small>
 
@@ -12,3 +13,5 @@
 
 [GitHub](https://github.com/Corddt)
 [Get Started](README)
+
+![](_media/bg.png)
