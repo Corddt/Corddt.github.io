@@ -3,7 +3,8 @@
 ![logo](_media/logo2.jpg)
 
 
-# Corddt <small>CX</small>
+# Corddt 
+<small>ChenXi</small>
 
 > 我的个人笔记及随想记录网页。
 
