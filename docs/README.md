@@ -20,6 +20,7 @@
 
 - 邮箱：[ddttted@gmail.com](mailto:ddttted@gmail.com)
 - GitHub：[github.com/corddt](https://github.com/corddt)
+- Instagram：[ChenXi](https://www.instagram.com/chenxiii2023/)
 
 ---
 
