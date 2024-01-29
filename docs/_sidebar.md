@@ -8,4 +8,4 @@
 * 随笔感想
 
 * 个人项目
-    * [批量复制工具](easy_copy)
+    * [批量复制工具](https://corddt.github.io/easy_copy)
