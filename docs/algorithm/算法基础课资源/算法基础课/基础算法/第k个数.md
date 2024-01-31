@@ -31,7 +31,7 @@
 
 
 ## 代码样例
-```java
+```cpp
 #include <iostream>
 
 using namespace std;
