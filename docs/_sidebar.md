@@ -2,9 +2,15 @@
 
 * [首页](README)
 
+* 网页快速抵达
+    * [快速复制](https://corddt.github.io/easy_copy)
+
+    * [滚动歌词](https://corddt.github.io/Lyrics-scrolling)
+  
 * 算法学习
     * [算法基础课](algorithm/算法基础课)
 
 * [随笔感想](随笔感想)
 
 * [个人开发项目](个人开发项目)
+
