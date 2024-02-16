@@ -6,6 +6,10 @@
     * [快速复制](https://corddt.github.io/easy_copy)
 
     * [滚动歌词](https://corddt.github.io/Lyrics-scrolling)
+
+    * [我的第一个闯关小游戏](https://corddt.github.io/MyFirstGame/)
+
+    * [新年烟花](https://corddt.github.io/ChineseNewYear/)
   
 * 算法学习
     * [算法基础课](algorithm/算法基础课)
