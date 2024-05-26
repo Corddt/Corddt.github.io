@@ -12,7 +12,7 @@
     * [新年烟花](https://corddt.github.io/ChineseNewYear/)
   
 * 算法学习
-    * [算法基础课](algorithm/算法基础课)
+    * [编程学习](program/programing)
 
 * [随笔感想](随笔感想)
 
