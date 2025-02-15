@@ -13,6 +13,6 @@
 - 其他笔记
 
 [GitHub](https://github.com/Corddt)
-[Get Started](README)
+[Get Started](README.md)
 
 ![](_media/bg.png)
