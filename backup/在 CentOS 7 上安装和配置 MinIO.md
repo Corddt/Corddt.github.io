@@ -143,4 +143,4 @@ sudo firewall-cmd --reload
     - `sudo systemctl start minio`：启动 MinIO 服务。
     - `sudo systemctl enable minio`：设置 MinIO 服务开机自启。
 
- 
+ <!-- ##{"timestamp":1739614863}## -->
