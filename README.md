@@ -1,5 +1,5 @@
-# Blog Title :link: https://Corddt.github.io/Blog 
-### :page_facing_up: [9](https://Corddt.github.io/Blog/tag.html) 
+# Blog Title :link: https://Corddt.github.io
+### :page_facing_up: [9](https://Corddt.github.io/tag.html) 
 ### :speech_balloon: 0 
 ### :hibiscus: 16854 
 ### :alarm_clock: 2025-02-15 16:47:02 
