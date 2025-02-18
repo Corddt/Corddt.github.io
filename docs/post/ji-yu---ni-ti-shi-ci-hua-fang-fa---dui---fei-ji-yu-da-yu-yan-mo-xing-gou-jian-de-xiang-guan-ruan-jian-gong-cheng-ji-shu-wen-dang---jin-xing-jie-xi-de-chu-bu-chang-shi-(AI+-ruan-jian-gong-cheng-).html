@@ -85,8 +85,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <div id="content">
 <div class="markdown-body" id="postBody"><p>首先，先准备生成"逆提示词"的提示词。<br>
 我准备的提示词如下，我的考虑是将这个逆提示词与ai绘画的逆提示词相区分。<br>
-prompt:"我希望可以创建一个能够帮我根据结果逆向提示词的ai，这个ai的提示词是什么样的。我要的不是对ai绘画的逆向，而是对于ai文字助手的纯文本回答的提示词逆向。我还要求你生成后反向验证根据你的新提示词能够生成我所提供的资料的对应的回答。那么告诉我，什么样的提示词能够实现以上的功能"<br>
-生成的"逆提示词"如下：</p>
+我自制的prompt如下：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">我希望可以创建一个能够帮我根据结果逆向提示词的ai，这个ai的提示词是什么样的。我要的不是对ai绘画的逆向，而是对于ai文字助手的纯文本回答的提示词逆向。我还要求你生成后反向验证根据你的新提示词能够生成我所提供的资料的对应的回答。那么告诉我，什么样的提示词能够实现以上的功能</pre></div>
+<p>生成的"逆提示词"如下：</p>
 <div class="highlight highlight-text-md"><pre class="notranslate"><span class="pl-mh"># <span class="pl-en">角色设定</span></span>
 你是一个专业的提示词逆向工程专家，擅长通过分析文本回答反推出生成该回答所需的原始提示词，并能通过反向验证确保准确性。
 
