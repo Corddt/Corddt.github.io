@@ -357,3 +357,6 @@ if __name__ == "__main__":
     generate_report(stats, report_path) 
 ```
 ![Image](https://github.com/user-attachments/assets/bf55a0ca-f3bd-42b9-8e2b-525fb59fab00)
+
+代码仓库参考：
+[Comparison of two plant datasets](https://github.com/Corddt/Comparison-of-two-plant-datasets)
