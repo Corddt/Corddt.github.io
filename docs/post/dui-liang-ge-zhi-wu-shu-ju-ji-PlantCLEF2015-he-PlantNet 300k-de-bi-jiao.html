@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="我现在有了两个不同的数据集，我想要比较这两个数据集的数据的重复度。">
+<meta property="og:title" content="对两个植物数据集PlantCLEF2015和PlantNet 300k的比较">
+<meta property="og:description" content="我现在有了两个不同的数据集，我想要比较这两个数据集的数据的重复度。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://Corddt.github.io/post/dui-liang-ge-zhi-wu-shu-ju-ji-PlantCLEF2015-he-PlantNet%20300k-de-bi-jiao.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>对两个植物数据集PlantCLEF2015和PlantNet 300k的比较</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">对两个植物数据集PlantCLEF2015和PlantNet 300k的比较</h1>
+<div class="title-right">
+    <a href="https://Corddt.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/Corddt/Corddt.github.io/issues/19" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>我现在有了两个不同的数据集，我想要比较这两个数据集的数据的重复度。因此编写python程序，首先汇总各个数据集的植物，生成包含文件名的json文件。<br>
+首先是对plantnet 300k该植物数据集进行数据统计。<br>
+统计的python程序如下：</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">os</span>
+<span class="pl-k">import</span> <span class="pl-s1">json</span>
+
+<span class="pl-k">def</span> <span class="pl-en">collect_species_names</span>():
+    <span class="pl-s">"""收集当前目录下的所有植物名称并保存为JSON格式"""</span>
+    <span class="pl-c"># 获取当前目录</span>
+    <span class="pl-s1">current_dir</span> <span class="pl-c1">=</span> <span class="pl-s1">os</span>.<span class="pl-c1">path</span>.<span class="pl-c1">dirname</span>(<span class="pl-s1">os</span>.<span class="pl-c1">path</span>.<span class="pl-c1">abspath</span>(<span class="pl-s1">__file__</span>))
+    
+    <span class="pl-c"># 收集物种名称</span>
+    <span class="pl-s1">species_names</span> <span class="pl-c1">=</span> []
+    <span class="pl-k">for</span> <span class="pl-s1">item</span> <span class="pl-c1">in</span> <span class="pl-s1">os</span>.<span class="pl-c1">listdir</span>(<span class="pl-s1">current_dir</span>):
+        <span class="pl-c"># 只处理文件夹</span>
+        <span class="pl-k">if</span> <span class="pl-s1">os</span>.<span class="pl-c1">path</span>.<span class="pl-c1">isdir</span>(<span class="pl-s1">os</span>.<span class="pl-c1">path</span>.<span class="pl-c1">join</span>(<span class="pl-s1">current_dir</span>, <span class="pl-s1">item</span>)):
+            <span class="pl-s1">species_names</span>.<span class="pl-c1">append</span>(<span class="pl-s1">item</span>)
+    
+    <span class="pl-c"># 按字母顺序排序</span>
+    <span class="pl-s1">species_names</span>.<span class="pl-c1">sort</span>()
+    
+    <span class="pl-c"># 创建带编号的字典</span>
+    <span class="pl-s1">species_dict</span> <span class="pl-c1">=</span> {<span class="pl-en">str</span>(<span class="pl-s1">i</span>): <span class="pl-s1">name</span> <span class="pl-k">for</span> <span class="pl-s1">i</span>, <span class="pl-s1">name</span> <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-s1">species_names</span>)}
+    
+    <span class="pl-c"># 保存为JSON文件</span>
+    <span class="pl-s1">output_file</span> <span class="pl-c1">=</span> <span class="pl-s1">os</span>.<span class="pl-c1">path</span>.<span class="pl-c1">join</span>(<span class="pl-s1">current_dir</span>, <span class="pl-s">'test_species_names.json'</span>)
+    <span class="pl-k">with</span> <span class="pl-en">open</span>(<span class="pl-s1">output_file</span>, <span class="pl-s">'w'</span>, <span class="pl-s1">encoding</span><span class="pl-c1">=</span><span class="pl-s">'utf-8'</span>) <span class="pl-k">as</span> <span class="pl-s1">f</span>:
+        <span class="pl-s1">json</span>.<span class="pl-c1">dump</span>(<span class="pl-s1">species_dict</span>, <span class="pl-s1">f</span>, <span class="pl-s1">ensure_ascii</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">indent</span><span class="pl-c1">=</span><span class="pl-c1">2</span>)
+    
+    <span class="pl-c"># 打印统计信息</span>
+    <span class="pl-en">print</span>(<span class="pl-s">f"共收集到 <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-en">len</span>(<span class="pl-s1">species_names</span>)<span class="pl-kos">}</span></span> 个物种名称"</span>)
+    <span class="pl-en">print</span>(<span class="pl-s">f"数据已保存到: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">output_file</span><span class="pl-kos">}</span></span>"</span>)
+    
+    <span class="pl-c"># 打印前几个示例</span>
+    <span class="pl-en">print</span>(<span class="pl-s">"<span class="pl-cce">\n</span>前5个物种示例:"</span>)
+    <span class="pl-k">for</span> <span class="pl-s1">i</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-en">min</span>(<span class="pl-c1">5</span>, <span class="pl-en">len</span>(<span class="pl-s1">species_names</span>))):
+        <span class="pl-en">print</span>(<span class="pl-s">f"<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">i</span><span class="pl-kos">}</span></span>: <span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">species_names</span>[<span class="pl-s1">i</span>]<span class="pl-kos">}</span></span>"</span>)
+
+<span class="pl-k">if</span> <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">"__main__"</span>:
+    <span class="pl-en">collect_species_names</span>() </pre></div>
+<p>在命令行执行：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">python collect_species_names.py</pre></div>
+<p>运行结果：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ca27eea3-d8f4-4588-9364-74c3cab6bb58"><img src="https://github.com/user-attachments/assets/ca27eea3-d8f4-4588-9364-74c3cab6bb58" alt="Image" style="max-width: 100%;"></a></p>
+<p>其次是对plantclef 2015数据集进行数据统计。<br>
+运行结果：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/e3df3cbd-e00f-4f4d-9b70-a5a94ca26750"><img src="https://github.com/user-attachments/assets/e3df3cbd-e00f-4f4d-9b70-a5a94ca26750" alt="Image" style="max-width: 100%;"></a></p>
+<p>新建match文件夹。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/59e257b1-40b2-4863-96a8-187aa6461701"><img src="https://github.com/user-attachments/assets/59e257b1-40b2-4863-96a8-187aa6461701" alt="Image" style="max-width: 100%;"></a><br>
+将两个json文件都放入其中。<br>
+为了方便鉴别，我将两个文件分别命名如下：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/52223469-cce2-4ebf-985a-cae81e9facf1"><img src="https://github.com/user-attachments/assets/52223469-cce2-4ebf-985a-cae81e9facf1" alt="Image" style="max-width: 100%;"></a></p>
+<p>编写对应的Python脚本：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">import json
+from collections import Counter
+import pandas as pd
+from datetime import datetime
+
+def load_json_data(file_path):
+    """加载JSON文件数据，返回物种名称列表"""
+    with open(file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        # 只返回物种名称（JSON中的值），忽略序号（键）
+        return list(data.values())
+
+def analyze_datasets(plantclef_path, plantnet_path):
+    """分析两个数据集的异同"""
+    # 加载数据
+    plantclef_data = load_json_data(plantclef_path)
+    plantnet_data = load_json_data(plantnet_path)
+    
+    # 转换为集合以便比较
+    plantclef_species = set(plantclef_data)
+    plantnet_species = set(plantnet_data)
+    
+    # 计算统计信息
+    common_species = plantclef_species.intersection(plantnet_species)
+    only_in_plantclef = plantclef_species - plantnet_species
+    only_in_plantnet = plantnet_species - plantclef_species
+    
+    # 打印分析结果
+    print(f"数据集分析结果:")
+    print(f"PlantCLEF2015 物种总数: {len(plantclef_species)}")
+    print(f"PlantNet300K 物种总数: {len(plantnet_species)}")
+    print(f"两个数据集共有物种数: {len(common_species)}")
+    print(f"仅在PlantCLEF2015中出现的物种数: {len(only_in_plantclef)}")
+    print(f"仅在PlantNet300K中出现的物种数: {len(only_in_plantnet)}")
+    
+    # 生成详细的Excel报告
+    generate_excel_report(plantclef_species, plantnet_species, 
+                         common_species, only_in_plantclef, only_in_plantnet)
+    
+    # 保存详细结果到文本文件
+    with open('analysis_results.txt', 'w', encoding='utf-8') as f:
+        f.write("共同物种列表:\n")
+        f.write("\n".join(sorted(common_species)))
+        f.write("\n\n仅在PlantCLEF2015中的物种:\n")
+        f.write("\n".join(sorted(only_in_plantclef)))
+        f.write("\n\n仅在PlantNet300K中的物种:\n")
+        f.write("\n".join(sorted(only_in_plantnet)))
+
+def generate_excel_report(plantclef_species, plantnet_species, 
+                         common_species, only_in_plantclef, only_in_plantnet):
+    """生成详细的Excel报告"""
+    # 创建时间戳
+    timestamp = datetime.now().strftime("%Y%m%d<span class="pl-s">_</span>%H%M%S")
+    
+    # 创建Excel写入器
+    with pd.ExcelWriter(f'plant_datasets_analysis<span class="pl-s">_</span>{timestamp}.xlsx') as writer:
+        # 1. 概述表格
+        summary_data = {
+            '统计项': <span class="pl-s">[</span>
+                'PlantCLEF2015数据集物种总数',
+                'PlantNet300K数据集物种总数',
+                '共同物种数量',
+                '仅在PlantCLEF2015中的物种数量',
+                '仅在PlantNet300K中的物种数量',
+                '物种并集总数',
+                'PlantCLEF2015独有物种占比',
+                'PlantNet300K独有物种占比',
+                '共同物种占比(相对于并集)'
+            <span class="pl-s">]</span>,
+            '数值': <span class="pl-s">[</span>
+                len(plantclef_species),
+                len(plantnet_species),
+                len(common_species),
+                len(only_in_plantclef),
+                len(only_in_plantnet),
+                len(plantclef_species.union(plantnet_species)),
+                f"{len(only_in_plantclef)/len(plantclef_species):.2%}",
+                f"{len(only_in_plantnet)/len(plantnet_species):.2%}",
+                f"{len(common_species)/len(plantclef_species.union(plantnet_species)):.2%}"
+            <span class="pl-s">]</span>
+        }
+        pd.DataFrame(summary_data).to_excel(writer, sheet_name='总体统计', index=False)
+        
+        # 2. 共同物种列表
+        pd.DataFrame(sorted(common_species), columns=<span class="pl-s">[</span>'物种名称'<span class="pl-s">]</span>).to_excel(
+            writer, sheet_name='共同物种', index=False)
+        
+        # 3. 仅在PlantCLEF2015中的物种
+        pd.DataFrame(sorted(only_in_plantclef), columns=<span class="pl-s">[</span>'物种名称'<span class="pl-s">]</span>).to_excel(
+            writer, sheet_name='PlantCLEF2015独有', index=False)
+        
+        # 4. 仅在PlantNet300K中的物种
+        pd.DataFrame(sorted(only_in_plantnet), columns=<span class="pl-s">[</span>'物种名称'<span class="pl-s">]</span>).to_excel(
+            writer, sheet_name='PlantNet300K独有', index=False)
+
+if <span class="pl-s">__</span>name<span class="pl-s">__</span> == "<span class="pl-s">__</span>main<span class="pl-s">__</span>":
+    plantclef_path = "plantclef2015.json"
+    plantnet_path = "plantnet300k.json"
+    analyze_datasets(plantclef_path, plantnet_path) </pre></div>
+<p>结果如下：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ca630a50-5f27-4292-9c45-48504dc717d7"><img src="https://github.com/user-attachments/assets/ca630a50-5f27-4292-9c45-48504dc717d7" alt="Image" style="max-width: 100%;"></a></p>
+<p>同时生成了一个excel可以看具体情况：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/21fa8d2b-76ec-443f-a31d-b0bf4eb53fe0"><img src="https://github.com/user-attachments/assets/21fa8d2b-76ec-443f-a31d-b0bf4eb53fe0" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/9292894b-76e7-4704-aed7-240a3e21fbf5"><img src="https://github.com/user-attachments/assets/9292894b-76e7-4704-aed7-240a3e21fbf5" alt="Image" style="max-width: 100%;"></a></p>
+<p>同时生成html图表展示。生成的代码如下：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">import json
+import os
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+def load_json_data(file_path):
+    """加载JSON文件数据，返回物种名称列表"""
+    with open(file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        return list(data.values())
+
+def create_visualizations(plantclef_path, plantnet_path):
+    """生成可视化图表并保存为HTML文件"""
+    # 加载数据
+    plantclef_data = load_json_data(plantclef_path)
+    plantnet_data = load_json_data(plantnet_path)
+    
+    # 转换为集合以便比较
+    plantclef_species = set(plantclef_data)
+    plantnet_species = set(plantnet_data)
+    
+    # 计算统计信息
+    common_species = plantclef_species.intersection(plantnet_species)
+    only_in_plantclef = plantclef_species - plantnet_species
+    only_in_plantnet = plantnet_species - plantclef_species
+    
+    # 创建文件夹
+    if not os.path.exists('visualizations'):
+        os.makedirs('visualizations')
+    
+    # 创建子图
+    fig = make_subplots(rows=6, cols=1, 
+                        subplot_titles=("物种总数对比", "物种分布情况", "物种数量分布", "物种重叠度热力图", "物种数量箱线图", "物种数量散点图"),
+                        specs=<span class="pl-s">[[</span>{"type": "bar"}<span class="pl-s">]</span>, <span class="pl-s">[</span>{"type": "pie"}<span class="pl-s">]</span>, <span class="pl-s">[</span>{"type": "bar"}<span class="pl-s">]</span>, <span class="pl-s">[</span>{"type": "heatmap"}<span class="pl-s">]</span>, <span class="pl-s">[</span>{"type": "box"}<span class="pl-s">]</span>, <span class="pl-s">[</span>{"type": "scatter"}<span class="pl-s">]]</span>)
+
+    <span class="pl-c1"># 1. 物种总数的柱状图</span>
+    <span class="pl-c1">fig.add_trace(go.Bar(x=['PlantCLEF2015', 'PlantNet300K'], </span>
+    <span class="pl-c1">                      y=[len(plantclef_species), len(plantnet_species)],</span>
+    <span class="pl-c1">                      marker_color=['blue', 'orange']),</span>
+    <span class="pl-c1">              row=1, col=1)</span>
+
+    <span class="pl-c1"># 2. 共同物种和独有物种的饼图</span>
+    <span class="pl-c1">sizes = [len(common_species), len(only_in_plantclef), len(only_in_plantnet)]</span>
+    <span class="pl-c1">labels = ['共同物种', '仅在PlantCLEF2015中', '仅在PlantNet300K中']</span>
+    <span class="pl-c1">fig.add_trace(go.Pie(labels=labels, values=sizes, hole=.3),</span>
+    <span class="pl-c1">              row=2, col=1)</span>
+
+    <span class="pl-c1"># 3. 物种数量的条形图</span>
+    <span class="pl-c1">fig.add_trace(go.Bar(x=['共同物种', '仅在PlantCLEF2015中', '仅在PlantNet300K中'], </span>
+    <span class="pl-c1">                      y=[len(common_species), len(only_in_plantclef), len(only_in_plantnet)],</span>
+    <span class="pl-c1">                      marker_color=['green', 'red', 'purple']),</span>
+    <span class="pl-c1">              row=3, col=1)</span>
+
+    <span class="pl-c1"># 4. 物种重叠度的热力图</span>
+    <span class="pl-c1">overlap_matrix = [</span>
+    <span class="pl-c1">    [len(common_species), len(only_in_plantclef), len(only_in_plantnet)],</span>
+    <span class="pl-c1">    [len(only_in_plantclef), len(common_species), len(only_in_plantnet)],</span>
+    <span class="pl-c1">    [len(only_in_plantnet), len(common_species), len(only_in_plantclef)]</span>
+    <span class="pl-c1">]</span>
+    
+    <span class="pl-c1">fig.add_trace(go.Heatmap(z=overlap_matrix, </span>
+    <span class="pl-c1">                       x=['共同物种', '仅在PlantCLEF2015中', '仅在PlantNet300K中'],</span>
+    <span class="pl-c1">                       y=['共同物种', '仅在PlantCLEF2015中', '仅在PlantNet300K中'],</span>
+    <span class="pl-c1">                       colorscale='Viridis'),</span>
+    <span class="pl-c1">              row=4, col=1)</span>
+
+    <span class="pl-c1"># 5. 物种数量的箱线图</span>
+    <span class="pl-c1">fig.add_trace(go.Box(y=[len(plantclef_species), len(plantnet_species)], </span>
+    <span class="pl-c1">                      name='物种数量', </span>
+    <span class="pl-c1">                      marker_color='lightblue'),</span>
+    <span class="pl-c1">              row=5, col=1)</span>
+
+    <span class="pl-c1"># 6. 物种数量的散点图</span>
+    <span class="pl-c1">fig.add_trace(go.Scatter(x=['PlantCLEF2015', 'PlantNet300K'], </span>
+    <span class="pl-c1">                          y=[len(plantclef_species), len(plantnet_species)],</span>
+    <span class="pl-c1">                          mode='markers+lines', </span>
+    <span class="pl-c1">                          marker=dict(size=10, color='red')),</span>
+    <span class="pl-c1">              row=6, col=1)</span>
+
+    <span class="pl-c1"># 更新布局</span>
+    <span class="pl-c1">fig.update_layout(title_text='植物数据集分析', height=1500)</span>
+    
+    <span class="pl-c1"># 添加meta标签以指定字符集为UTF-8</span>
+    <span class="pl-c1">fig_html = fig.to_html(full_html=True)</span>
+    <span class="pl-c1">fig_html = fig_html.replace('&lt;head&gt;', '&lt;head&gt;&lt;meta charset="UTF-8"&gt;')</span>
+
+    <span class="pl-c1"># 保存为HTML文件</span>
+    <span class="pl-c1">with open('visualizations/species_analysis.html', 'w', encoding='utf-8') as f:</span>
+    <span class="pl-c1">    f.write(fig_html)</span>
+
+if <span class="pl-s">__</span>name<span class="pl-s">__</span> == "<span class="pl-s">__</span>main<span class="pl-s">__</span>":
+    plantclef_path = "plantclef2015.json"
+    plantnet_path = "plantnet300k.json"
+    create_visualizations(plantclef_path, plantnet_path)
+</pre></div>
+<p>图表展示：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/fc066488-a3b7-45da-a62d-1b34277c002d"><img src="https://github.com/user-attachments/assets/fc066488-a3b7-45da-a62d-1b34277c002d" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/def872de-cc46-4ee7-b7e0-53de7e271784"><img src="https://github.com/user-attachments/assets/def872de-cc46-4ee7-b7e0-53de7e271784" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/67d292a0-efa2-473b-bfaf-52c366e3a547"><img src="https://github.com/user-attachments/assets/67d292a0-efa2-473b-bfaf-52c366e3a547" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b5789121-a3f3-496b-8ee2-fb8372b9fe3f"><img src="https://github.com/user-attachments/assets/b5789121-a3f3-496b-8ee2-fb8372b9fe3f" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/4ffdb54c-bbbf-41ba-a021-b263e78f1d10"><img src="https://github.com/user-attachments/assets/4ffdb54c-bbbf-41ba-a021-b263e78f1d10" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a0626366-d539-4c6f-bfb4-fa3c94fb9a6b"><img src="https://github.com/user-attachments/assets/a0626366-d539-4c6f-bfb4-fa3c94fb9a6b" alt="Image" style="max-width: 100%;"></a></p>
+<p>同时统计总共的物种数量：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">import json
+
+def load_json_data(file_path):
+    """加载JSON文件数据，返回物种名称列表"""
+    with open(file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+        return list(data.values())
+
+def analyze_species(plantclef_path, plantnet_path):
+    """分析两个数据集的物种信息并返回统计结果"""
+    # 加载数据
+    plantclef_data = load_json_data(plantclef_path)
+    plantnet_data = load_json_data(plantnet_path)
+    
+    # 转换为集合以便比较
+    plantclef_species = set(plantclef_data)
+    plantnet_species = set(plantnet_data)
+    
+    # 计算统计信息
+    common_species = plantclef_species.intersection(plantnet_species)
+    only_in_plantclef = plantclef_species - plantnet_species
+    only_in_plantnet = plantnet_species - plantclef_species
+    
+    total_unique_species = len(plantclef_species | plantnet_species)  # 并集
+    
+    return {
+        "plantclef_count": len(plantclef_species),
+        "plantnet_count": len(plantnet_species),
+        "common_count": len(common_species),
+        "only_in_plantclef_count": len(only_in_plantclef),
+        "only_in_plantnet_count": len(only_in_plantnet),
+        "total_unique_count": total_unique_species
+    }
+
+def generate_report(stats, report_path):
+    """生成分析报告"""
+    # 生成报告内容
+    report_content = f"""
+    植物数据集分析报告
+
+    <span class="pl-c1">1. 数据集概述:</span>
+    <span class="pl-c1">- PlantCLEF2015 数据集物种总数: {stats['plantclef_count']}</span>
+    <span class="pl-c1">- PlantNet300K 数据集物种总数: {stats['plantnet_count']}</span>
+
+    <span class="pl-c1">2. 共同物种和独有物种数量:</span>
+    <span class="pl-c1">- 共同物种数量: {stats['common_count']}</span>
+    <span class="pl-c1">- 仅在 PlantCLEF2015 中出现的物种数量: {stats['only_in_plantclef_count']}</span>
+    <span class="pl-c1">- 仅在 PlantNet300K 中出现的物种数量: {stats['only_in_plantnet_count']}</span>
+
+    <span class="pl-c1">3. 总的植物种类数量:</span>
+    <span class="pl-c1">- 合并后的植物种类数量: {stats['total_unique_count']}</span>
+    <span class="pl-c1">"""</span>
+    
+    <span class="pl-c1"># 将报告写入文件</span>
+    <span class="pl-c1">with open(report_path, 'w', encoding='utf-8') as f:</span>
+    <span class="pl-c1">    f.write(report_content)</span>
+    
+    <span class="pl-c1">print(f"分析报告已生成: {report_path}")</span>
+
+if <span class="pl-s">__</span>name<span class="pl-s">__</span> == "<span class="pl-s">__</span>main<span class="pl-s">__</span>":
+    plantclef_path = "plantclef2015.json"
+    plantnet_path = "plantnet300k.json"
+    report_path = "analysis_report.txt"
+    
+    # 分析物种信息
+    stats = analyze_species(plantclef_path, plantnet_path)
+    
+    # 生成报告
+    generate_report(stats, report_path) </pre></div>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/bf55a0ca-f3bd-42b9-8e2b-525fb59fab00"><img src="https://github.com/user-attachments/assets/bf55a0ca-f3bd-42b9-8e2b-525fb59fab00" alt="Image" style="max-width: 100%;"></a></p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://Corddt.github.io">Corddt</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","Corddt/Corddt.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
