@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="首先我是在Featurize上租的云服务器，主要租用了3060和纯cpu这两种。">
+<meta property="og:title" content="对合并后的新数据集的训练种种（第一部分_cpu）">
+<meta property="og:description" content="首先我是在Featurize上租的云服务器，主要租用了3060和纯cpu这两种。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://Corddt.github.io/post/dui-he-bing-hou-de-xin-shu-ju-ji-de-xun-lian-zhong-zhong-%EF%BC%88-di-yi-bu-fen-_cpu%EF%BC%89.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>对合并后的新数据集的训练种种（第一部分_cpu）</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">对合并后的新数据集的训练种种（第一部分_cpu）</h1>
+<div class="title-right">
+    <a href="https://Corddt.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/Corddt/Corddt.github.io/issues/20" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>首先我是在Featurize上租的云服务器，主要租用了3060和纯cpu这两种。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ea871a11-e9cc-4b3e-80a0-935d21450625"><img src="https://github.com/user-attachments/assets/ea871a11-e9cc-4b3e-80a0-935d21450625" alt="Image" style="max-width: 100%;"></a></p>
+<p>参考了同济子豪兄的图像分类教程。</p>
+<p>使用的主要是ResNet50来进行模型训练。</p>
+<p>为什么我要租用两个服务器呢？其实主要是为了节省时间。</p>
+<h2>一、在cpu上主要进行的是数据的统计的相关工作</h2>
+<h3>1、在可视化文件夹中的图像方面</h3>
+<p>（另外学到一招，就是如果想得到绝对路径，就不断地ls,cd...调到对应的那个路径下面，然后输入pwd）</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ff500094-f96a-4520-945e-c2c1633c1737"><img src="https://github.com/user-attachments/assets/ff500094-f96a-4520-945e-c2c1633c1737" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b420d862-0d24-46c7-959e-ac42545b1206"><img src="https://github.com/user-attachments/assets/b420d862-0d24-46c7-959e-ac42545b1206" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/5dd2894b-3174-4bb7-941e-ab7061cb1e31"><img src="https://github.com/user-attachments/assets/5dd2894b-3174-4bb7-941e-ab7061cb1e31" alt="Image" style="max-width: 100%;"></a></p>
+<h3>2、在图像分类数据集探索统计方面</h3>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/72e87605-20ca-4473-9dfc-bd05dad119e0"><img src="https://github.com/user-attachments/assets/72e87605-20ca-4473-9dfc-bd05dad119e0" alt="Image" style="max-width: 100%;"></a><br>
+这里也学到一招，就是使用华为云的OBS服务器可以存储一些资源文件。我买了一个包年的，50G的，花了9块钱，然后买了一个月的流量包是12块钱。华为可以用OBS Browser，登录的时候注意IMA登录的话不要用手机号，而是使用用户名。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/57688ed6-4ba5-445f-b3d1-743f9c7a5af5"><img src="https://github.com/user-attachments/assets/57688ed6-4ba5-445f-b3d1-743f9c7a5af5" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/17fe1a3e-004a-468c-a602-259d5797e745"><img src="https://github.com/user-attachments/assets/17fe1a3e-004a-468c-a602-259d5797e745" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b5053faa-a60b-412c-b861-86413891e59b"><img src="https://github.com/user-attachments/assets/b5053faa-a60b-412c-b861-86413891e59b" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/dfa09bf4-d200-4f9e-ae8b-d0743a8d337e"><img src="https://github.com/user-attachments/assets/dfa09bf4-d200-4f9e-ae8b-d0743a8d337e" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/9e873d76-9392-4d3d-b9ff-30ed25f8edc5"><img src="https://github.com/user-attachments/assets/9e873d76-9392-4d3d-b9ff-30ed25f8edc5" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/9ae10749-97fb-4e11-bb5f-e87904c660e1"><img src="https://github.com/user-attachments/assets/9ae10749-97fb-4e11-bb5f-e87904c660e1" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/3313fed1-6ef8-40c2-9520-b5777a921b33"><img src="https://github.com/user-attachments/assets/3313fed1-6ef8-40c2-9520-b5777a921b33" alt="Image" style="max-width: 100%;"></a></p>
+<h3>3、在划分训练集和测试集方面</h3>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/11a2f521-8482-4dcb-82aa-9c66c4085b98"><img src="https://github.com/user-attachments/assets/11a2f521-8482-4dcb-82aa-9c66c4085b98" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/3782b5d2-6f0b-49f9-a9ce-0a684a5e651b"><img src="https://github.com/user-attachments/assets/3782b5d2-6f0b-49f9-a9ce-0a684a5e651b" alt="Image" style="max-width: 100%;"></a></p>
+<p>也学到一个看解压到哪里的小技巧：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/4ff7e1cf-194a-43fc-8328-81ea584a6f82"><img src="https://github.com/user-attachments/assets/4ff7e1cf-194a-43fc-8328-81ea584a6f82" alt="Image" style="max-width: 100%;"></a></p>
+<p>不断地刷新，就能知道现在解压到多少了。大数据集适用的小技巧。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/0e3456e0-9b33-4eeb-9d8e-fdf490d7f092"><img src="https://github.com/user-attachments/assets/0e3456e0-9b33-4eeb-9d8e-fdf490d7f092" alt="Image" style="max-width: 100%;"></a></p>
+<p>创建训练集文件夹和测试集文件夹：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/4070866b-c9f6-4c15-b816-54fb8784de6e"><img src="https://github.com/user-attachments/assets/4070866b-c9f6-4c15-b816-54fb8784de6e" alt="Image" style="max-width: 100%;"></a></p>
+<p>划分训练集、测试集，移动文件：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">df = pd.DataFrame()
+
+print('{:^18} {:^18} {:^18}'.format('类别', '训练集数据个数', '测试集数据个数'))
+
+for fruit in classes: # 遍历每个类别
+
+    <span class="pl-c1"># 读取该类别的所有图像文件名</span>
+    <span class="pl-c1">old_dir = os.path.join(dataset_path, fruit)</span>
+    <span class="pl-c1">images_filename = os.listdir(old_dir)</span>
+    <span class="pl-c1">random.shuffle(images_filename) # 随机打乱</span>
+
+    <span class="pl-c1"># 划分训练集和测试集</span>
+    <span class="pl-c1">testset_numer = int(len(images_filename) * test_frac) # 测试集图像个数</span>
+    <span class="pl-c1">testset_images = images_filename[:testset_numer]      # 获取拟移动至 test 目录的测试集图像文件名</span>
+    <span class="pl-c1">trainset_images = images_filename[testset_numer:]     # 获取拟移动至 train 目录的训练集图像文件名</span>
+
+    <span class="pl-c1"># 移动图像至 test 目录</span>
+    <span class="pl-c1">for image in testset_images:</span>
+    <span class="pl-c1">    old_img_path = os.path.join(dataset_path, fruit, image)         # 获取原始文件路径</span>
+    <span class="pl-c1">    new_test_path = os.path.join(dataset_path, 'val', fruit, image) # 获取 test 目录的新文件路径</span>
+    <span class="pl-c1">    shutil.move(old_img_path, new_test_path) # 移动文件</span>
+
+    <span class="pl-c1"># 移动图像至 train 目录</span>
+    <span class="pl-c1">for image in trainset_images:</span>
+    <span class="pl-c1">    old_img_path = os.path.join(dataset_path, fruit, image)           # 获取原始文件路径</span>
+    <span class="pl-c1">    new_train_path = os.path.join(dataset_path, 'train', fruit, image) # 获取 train 目录的新文件路径</span>
+    <span class="pl-c1">    shutil.move(old_img_path, new_train_path) # 移动文件</span>
+    
+    <span class="pl-c1"># 删除旧文件夹</span>
+    <span class="pl-c1">assert len(os.listdir(old_dir)) == 0 # 确保旧文件夹中的所有图像都被移动走</span>
+    <span class="pl-c1">shutil.rmtree(old_dir) # 删除文件夹</span>
+    
+    <span class="pl-c1"># 工整地输出每一类别的数据个数</span>
+    <span class="pl-c1">print('{:^18} {:^18} {:^18}'.format(fruit, len(trainset_images), len(testset_images)))</span>
+    
+    <span class="pl-c1"># 保存到表格中</span>
+    <span class="pl-c1">df = df.append({'class':fruit, 'trainset':len(trainset_images), 'testset':len(testset_images)}, ignore_index=True)</span>
+
+<span class="pl-mh"># <span class="pl-en">重命名数据集文件夹</span></span>
+shutil.move(dataset_path, dataset_name+'<span class="pl-s">_</span>split')
+
+<span class="pl-mh"># <span class="pl-en">数据集各类别数量统计表格，导出为 csv 文件</span></span>
+df<span class="pl-s">[</span>'total'<span class="pl-s">]</span> = df<span class="pl-s">[</span>'trainset'<span class="pl-s">]</span> + df<span class="pl-s">[</span>'testset'<span class="pl-s">]</span>
+df.to_csv('数据量统计.csv', index=False)</pre></div>
+<p>显示结果如下：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">df = pd.DataFrame()
+
+print('{:^18} {:^18} {:^18}'.format('类别', '训练集数据个数', '测试集数据个数'))
+
+for fruit in classes: # 遍历每个类别
+
+    <span class="pl-c1"># 读取该类别的所有图像文件名</span>
+    <span class="pl-c1">old_dir = os.path.join(dataset_path, fruit)</span>
+    <span class="pl-c1">images_filename = os.listdir(old_dir)</span>
+    <span class="pl-c1">random.shuffle(images_filename) # 随机打乱</span>
+
+    <span class="pl-c1"># 划分训练集和测试集</span>
+    <span class="pl-c1">testset_numer = int(len(images_filename) * test_frac) # 测试集图像个数</span>
+    <span class="pl-c1">testset_images = images_filename[:testset_numer]      # 获取拟移动至 test 目录的测试集图像文件名</span>
+    <span class="pl-c1">trainset_images = images_filename[testset_numer:]     # 获取拟移动至 train 目录的训练集图像文件名</span>
+
+    <span class="pl-c1"># 移动图像至 test 目录</span>
+    <span class="pl-c1">for image in testset_images:</span>
+    <span class="pl-c1">    old_img_path = os.path.join(dataset_path, fruit, image)         # 获取原始文件路径</span>
+    <span class="pl-c1">    new_test_path = os.path.join(dataset_path, 'val', fruit, image) # 获取 test 目录的新文件路径</span>
+    <span class="pl-c1">    shutil.move(old_img_path, new_test_path) # 移动文件</span>
+
+    <span class="pl-c1"># 移动图像至 train 目录</span>
+    <span class="pl-c1">for image in trainset_images:</span>
+    <span class="pl-c1">    old_img_path = os.path.join(dataset_path, fruit, image)           # 获取原始文件路径</span>
+    <span class="pl-c1">    new_train_path = os.path.join(dataset_path, 'train', fruit, image) # 获取 train 目录的新文件路径</span>
+    <span class="pl-c1">    shutil.move(old_img_path, new_train_path) # 移动文件</span>
+    
+    <span class="pl-c1"># 删除旧文件夹</span>
+    <span class="pl-c1">assert len(os.listdir(old_dir)) == 0 # 确保旧文件夹中的所有图像都被移动走</span>
+    <span class="pl-c1">shutil.rmtree(old_dir) # 删除文件夹</span>
+    
+    <span class="pl-c1"># 工整地输出每一类别的数据个数</span>
+    <span class="pl-c1">print('{:^18} {:^18} {:^18}'.format(fruit, len(trainset_images), len(testset_images)))</span>
+    
+    <span class="pl-c1"># 保存到表格中</span>
+    <span class="pl-c1">df = df.append({'class':fruit, 'trainset':len(trainset_images), 'testset':len(testset_images)}, ignore_index=True)</span>
+
+<span class="pl-mh"># <span class="pl-en">重命名数据集文件夹</span></span>
+shutil.move(dataset_path, dataset_name+'<span class="pl-s">_</span>split')
+
+<span class="pl-mh"># <span class="pl-en">数据集各类别数量统计表格，导出为 csv 文件</span></span>
+df<span class="pl-s">[</span>'total'<span class="pl-s">]</span> = df<span class="pl-s">[</span>'trainset'<span class="pl-s">]</span> + df<span class="pl-s">[</span>'testset'<span class="pl-s">]</span>
+df.to_csv('数据量统计.csv', index=False)</pre></div>
+<p>清理空文件：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">(base) ➜  PlantImage find /home/featurize/data/PlantImage_split/val -type d -empty -delete</pre></div>
+<h3>4、统计图像尺寸、比例分布（未完待续）</h3></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://Corddt.github.io">Corddt</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","Corddt/Corddt.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
