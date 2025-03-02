@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="### 1、pip包安装
+在子豪兄的视频里，他是在JupyterLab中输入这行代码进行的pip包安装。">
+<meta property="og:title" content="对合并后的新数据集的训练种种（第二部分_数据训练）">
+<meta property="og:description" content="### 1、pip包安装
+在子豪兄的视频里，他是在JupyterLab中输入这行代码进行的pip包安装。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://Corddt.github.io/post/dui-he-bing-hou-de-xin-shu-ju-ji-de-xun-lian-zhong-zhong-%EF%BC%88-di-er-bu-fen-_-shu-ju-xun-lian-%EF%BC%89.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>对合并后的新数据集的训练种种（第二部分_数据训练）</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">对合并后的新数据集的训练种种（第二部分_数据训练）</h1>
+<div class="title-right">
+    <a href="https://Corddt.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/Corddt/Corddt.github.io/issues/21" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h3>1、pip包安装</h3>
+<p>在子豪兄的视频里，他是在JupyterLab中输入这行代码进行的pip包安装。但是我发现特别的慢。所以我注释掉了，然后去终端安装的。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ca4cb019-9b0a-425c-acda-491fb5796348"><img src="https://github.com/user-attachments/assets/ca4cb019-9b0a-425c-acda-491fb5796348" alt="Image" style="max-width: 100%;"></a><br>
+这里显示□就多试几次，直到出现中文。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8e8fb766-c54d-401a-9047-823546ab88d6"><img src="https://github.com/user-attachments/assets/8e8fb766-c54d-401a-9047-823546ab88d6" alt="Image" style="max-width: 100%;"></a></p>
+<h3>2、迁移学习</h3>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/0100674e-0b7e-43f3-b035-a09bde7091d9"><img src="https://github.com/user-attachments/assets/0100674e-0b7e-43f3-b035-a09bde7091d9" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/f7ad3764-147b-430a-a77f-c7ee8f7389ac"><img src="https://github.com/user-attachments/assets/f7ad3764-147b-430a-a77f-c7ee8f7389ac" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/eea6b90f-18e0-4be1-90d3-599123949a03"><img src="https://github.com/user-attachments/assets/eea6b90f-18e0-4be1-90d3-599123949a03" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/4b51f034-ff56-4249-a26e-241ab708730c"><img src="https://github.com/user-attachments/assets/4b51f034-ff56-4249-a26e-241ab708730c" alt="Image" style="max-width: 100%;"></a></p>
+<p>然后是定义数据加载器这里，通过询问DeepSeek，我得到了相关的训练建议：<br>
+提问的Prompt:</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">rtx3060跑resnet50,30万张图片，你觉得参数都调多少合适? 这些都该怎么调？你一一帮我修改："""定义数据加载器DataLoader
+from torch.utils.data import DataLoader
+
+BATCH_SIZE = 32
+
+<span class="pl-mh"># <span class="pl-en">训练集的数据加载器</span></span>
+train_loader = DataLoader(train_dataset,
+                          batch_size=BATCH_SIZE,
+                          shuffle=True,
+                          num_workers=4
+                         )
+
+<span class="pl-mh"># <span class="pl-en">测试集的数据加载器</span></span>
+test_loader = DataLoader(test_dataset,
+                         batch_size=BATCH_SIZE,
+                         shuffle=False,
+                         num_workers=4
+                        )
+导入训练需使用的工具包
+from torchvision import models
+import torch.optim as optim
+from torch.optim import lr_scheduler
+选择迁移学习训练方式
+斯坦福CS231N【迁移学习】中文精讲：<span class="pl-corl">https://www.bilibili.com/video/BV1K7411W7So</span>
+
+斯坦福CS231N【迁移学习】官方笔记：<span class="pl-corl">https://cs231n.github.io/transfer-learning</span>
+
+如果你的数据集和MS COCO数据集的图像域类似（街景、动植物、生活用品），可以保留预训练模型权重，在自己的数据集上迁移学习微调分类输出层或所有层。站在巨人的肩膀上，复用预训练模型在MS COCO数据集上学习到的图像特征。（Transfer Learning, Fine Tuning）
+
+如果你的数据集和MS COCO数据集的图像域不类似（医疗影像、显微镜图像、工业检测、天文照片、动画、油画），可以随机初始化模型权重，在自己的数据集上重新训练所有层。（From Scratch）。或者冻结底层权重，只重新训练顶层，复用预训练模型在MS COCO数据集上学习到的底层图像特征。
+
+选择一：只微调训练模型最后一层（全连接分类层）
+model = models.resnet18(pretrained=True) # 载入预训练模型
+
+<span class="pl-mh"># <span class="pl-en">修改全连接层，使得全连接层的输出与当前数据集类别数对应</span></span>
+<span class="pl-mh"># <span class="pl-en">新建的层默认 requires_grad=True</span></span>
+model.fc = nn.Linear(model.fc.in_features, n_class)
+model.fc
+Linear(in_features=512, out_features=30, bias=True)
+<span class="pl-mh"># <span class="pl-en">只微调训练最后一层全连接层的参数，其它层冻结</span></span>
+optimizer = optim.Adam(model.fc.parameters())
+选择二：微调训练所有层
+<span class="pl-mh"># <span class="pl-en">model = models.resnet18(pretrained=True) # 载入预训练模型</span></span>
+
+<span class="pl-mh"># <span class="pl-en">model.fc = nn.Linear(model.fc.in_features, n_class)</span></span>
+
+<span class="pl-mh"># <span class="pl-en">optimizer = optim.Adam(model.parameters())</span></span>
+选择三：随机初始化模型全部权重，从头训练所有层
+<span class="pl-mh"># <span class="pl-en">model = models.resnet18(pretrained=False) # 只载入模型结构，不载入预训练权重参数</span></span>
+
+<span class="pl-mh"># <span class="pl-en">model.fc = nn.Linear(model.fc.in_features, n_class)</span></span>
+
+<span class="pl-mh"># <span class="pl-en">optimizer = optim.Adam(model.parameters())</span></span>
+训练配置
+model = model.to(device)
+
+<span class="pl-mh"># <span class="pl-en">交叉熵损失函数</span></span>
+criterion = nn.CrossEntropyLoss() 
+
+<span class="pl-mh"># <span class="pl-en">训练轮次 Epoch</span></span>
+EPOCHS = 30
+
+<span class="pl-mh"># <span class="pl-en">学习率降低策略</span></span>
+lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)"""我使用的数据集特征如下："""高内在歧义性（High Intrinsic Ambiguity）：数据集中的植物图像在视觉上具有很高的相似性，即使是专家也很难仅凭肉眼进行准确识别，这增加了分类任务的难度。
+
+长尾分布（Long-tailed Distribution）：数据集中的类别呈现长尾分布，即少数物种的图像数量占据了大部分，而许多物种的图像数量很少，这导致了类别之间的不平衡。
+
+大规模和多样性：Pl@ntNet-300K包含306,146张植物图像，涵盖了1,081个物种，这为评估集合值分类方法和算法提供了丰富的样本。
+
+数据集构建方法：作者通过从Pl@ntNet数据库中随机选择部分属（genera），并保留这些属中的所有物种来构建数据集，这种方法保留了原始数据库中固有的歧义性。
+
+评估指标：论文推荐了两种与数据集相关的集合值评估指标：宏观平均top-k准确率（macro-average top-k accuracy）和宏观平均average-k准确率（macro-average average-k accuracy），这些指标更适合评估集合值分类器的性能。
+
+基线结果：作者提供了使用交叉熵损失训练的深度神经网络的基线结果，这为后续研究提供了一个起点。
+
+实际应用背景：Pl@ntNet-300K数据集是从Pl@ntNet项目中收集的现实世界图像中提取的，该项目是一个大规模的公民科学观测项目，致力于通过基于图像的植物识别收集植物发生数据。
+
+数据验证和清洗：论文描述了一种基于加权多数投票算法的标签验证方法，以及数据清洗流程，包括自动化过滤不适当或不相关内容以及基于用户评估的图像质量过滤。"""</pre></div>
+<p>思考：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">嗯，用户现在在用RTX 3060跑ResNet50处理30万张图片，想知道怎么调整参数。他们的数据集是Pl@ntNet-300K，具有高歧义性、长尾分布等特点。我得先看看他们提供的代码，然后结合数据集特性来给出建议。
+
+首先，数据加载部分。他们原来的batch size是32，num_workers是4。考虑到RTX 3060的显存可能不是特别大，但30万张图片的话，可能可以适当增大batch size以提高训练速度。不过ResNet50本身参数多，显存占用大，所以需要平衡。可能32到64之间比较合适。num_workers可以增加到8或者根据CPU核心数调整，如果CPU允许的话，这样数据加载更快，避免成为瓶颈。
+
+然后是数据预处理部分。他们可能没有提到数据增强，但高歧义性的数据集需要更多的增强来提升模型泛化能力。比如随机裁剪、颜色抖动、旋转等。另外，长尾分布的问题，可能需要用加权采样或者类平衡采样器，比如在DataLoader里设置sampler参数，使用WeightedRandomSampler或者类似的方法来处理类别不平衡。
+
+接下来是模型选择。用户提到是否微调。他们的数据集是植物图像，和ImageNet可能有一定的相似性，所以应该用预训练模型进行微调。但类别是长尾分布，可能需要调整全连接层，并考虑分层学习率，比如后面层的lr大一些，前面层小一些，或者用不同的优化器参数组。
+
+优化器部分，他们原来用的是Adam，但可能SGD更适合微调，尤其是在预训练模型上。Adam虽然收敛快，但SGD加动量可能在最终准确率上更好，尤其是结合适当的学习率调整。学习率调度方面，StepLR可能不够灵活，可以考虑CosineAnnealingLR或者ReduceLROnPlateau，根据验证集表现调整。
+
+损失函数方面，长尾分布的问题，CrossEntropyLoss可能不够，需要加上类别权重，或者用Focal Loss来处理难例和类别不平衡。比如在CrossEntropyLoss中设置weight参数，根据每个类别的样本数计算权重。
+
+训练轮次EPOCHS设为30可能不够，特别是数据量大，可能需要更多轮次，比如50或更多，配合早停法防止过拟合。学习率调整策略也需要相应调整，比如每10个epoch降一次，或者根据验证损失来调整。
+
+另外，评估指标方面，用户的数据集用了macro-average top-k和average-k指标，所以训练过程中需要实现这些指标的计算，而不仅仅是常规的准确率。可能需要自定义评估函数。
+
+还有，显存限制的问题。RTX 3060的显存可能12GB，如果batch size太大可能不够。可以用梯度累积来模拟更大的batch size，比如实际batch是32，累积4步，相当于128，这样减少显存占用同时保持效果。
+
+模型保存和早停也是必要的，避免训练过久。可以设置验证损失监控，保存最佳模型。
+
+最后，混合精度训练可能可以加快训练速度，用torch.cuda.amp，这对RTX 3060支持良好，同时减少显存占用。
+
+总结一下，调整点包括数据加载的batch size和num_workers，数据增强，处理长尾分布的采样方法或损失函数，优化器选择和学习率策略，分层学习率，损失函数调整，评估指标，训练周期和早停，显存优化措施等。</pre></div>
+<p>答复：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/6e947be6-1bf0-41f8-91f9-2f29c810b978"><img src="https://github.com/user-attachments/assets/6e947be6-1bf0-41f8-91f9-2f29c810b978" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b889c713-4885-4712-83d6-bf88098a6c12"><img src="https://github.com/user-attachments/assets/b889c713-4885-4712-83d6-bf88098a6c12" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/f746f1c9-1621-470d-af7a-89e1387bd0b4"><img src="https://github.com/user-attachments/assets/f746f1c9-1621-470d-af7a-89e1387bd0b4" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/0b8c071c-18fa-4b87-9421-1d20f8046842"><img src="https://github.com/user-attachments/assets/0b8c071c-18fa-4b87-9421-1d20f8046842" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2c34d805-be1f-4283-af06-9cd1f27a14d4"><img src="https://github.com/user-attachments/assets/2c34d805-be1f-4283-af06-9cd1f27a14d4" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/cc7e27bf-5508-42a9-a3b9-49fea2179ec6"><img src="https://github.com/user-attachments/assets/cc7e27bf-5508-42a9-a3b9-49fea2179ec6" alt="Image" style="max-width: 100%;"></a></p>
+<p>所以最终采用的方案：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/c4f319f3-ed5d-4ffa-b4ba-a8f707872e6b"><img src="https://github.com/user-attachments/assets/c4f319f3-ed5d-4ffa-b4ba-a8f707872e6b" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/bb3b08ec-6026-4ca7-8730-353834b70cec"><img src="https://github.com/user-attachments/assets/bb3b08ec-6026-4ca7-8730-353834b70cec" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/d45a39e9-88cb-47dd-b404-eed802069aeb"><img src="https://github.com/user-attachments/assets/d45a39e9-88cb-47dd-b404-eed802069aeb" alt="Image" style="max-width: 100%;"></a><br>
+这里我做了一个小小的修正，你猜在哪里：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2198e1c6-49f3-40f6-a634-53ee892161c2"><img src="https://github.com/user-attachments/assets/2198e1c6-49f3-40f6-a634-53ee892161c2" alt="Image" style="max-width: 100%;"></a><br>
+准确率几乎为零：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/61ff8a4b-2f5b-4115-b4c4-3a30c07296a9"><img src="https://github.com/user-attachments/assets/61ff8a4b-2f5b-4115-b4c4-3a30c07296a9" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/5e438e80-8c4a-48ff-b12d-b3581b0f2689"><img src="https://github.com/user-attachments/assets/5e438e80-8c4a-48ff-b12d-b3581b0f2689" alt="Image" style="max-width: 100%;"></a></p>
+<p>python3.7，这一步没做：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/0561a4dd-978f-4c7a-9271-8ea44e38bb5b"><img src="https://github.com/user-attachments/assets/0561a4dd-978f-4c7a-9271-8ea44e38bb5b" alt="Image" style="max-width: 100%;"></a></p>
+<p>开始训练：</p>
+<div class="highlight highlight-text-md"><pre class="notranslate">for epoch in range(1, EPOCHS+1):
+    
+    print(f'Epoch {epoch}/{EPOCHS}')
+    
+    ## 训练阶段
+    model.train()
+    for images, labels in tqdm(train_loader): # 获得一个 batch 的数据和标注
+        batch_idx += 1
+        log_train = train_one_batch(images, labels)
+        df_train_log = df_train_log.append(log_train, ignore_index=True)
+        # wandb.log(log_train)
+        
+    lr_scheduler.step()
+
+    <span class="pl-c1">## 测试阶段</span>
+    <span class="pl-c1">model.eval()</span>
+    <span class="pl-c1">log_test = evaluate_testset()</span>
+    <span class="pl-c1">df_test_log = df_test_log.append(log_test, ignore_index=True)</span>
+    <span class="pl-c1"># wandb.log(log_test)</span>
+    
+    <span class="pl-c1"># 保存最新的最佳模型文件</span>
+    <span class="pl-c1">if log_test['test_accuracy'] &gt; best_test_accuracy: </span>
+    <span class="pl-c1">    # 删除旧的最佳模型文件(如有)</span>
+    <span class="pl-c1">    old_best_checkpoint_path = 'checkpoint/best-{:.3f}.pth'.format(best_test_accuracy)</span>
+    <span class="pl-c1">    if os.path.exists(old_best_checkpoint_path):</span>
+    <span class="pl-c1">        os.remove(old_best_checkpoint_path)</span>
+    <span class="pl-c1">    # 保存新的最佳模型文件</span>
+    <span class="pl-c1">    best_test_accuracy = log_test['test_accuracy']</span>
+    <span class="pl-c1">    new_best_checkpoint_path = 'checkpoint/best-{:.3f}.pth'.format(log_test['test_accuracy'])</span>
+    <span class="pl-c1">    torch.save(model, new_best_checkpoint_path)</span>
+    <span class="pl-c1">    print('保存新的最佳模型', 'checkpoint/best-{:.3f}.pth'.format(best_test_accuracy))</span>
+    <span class="pl-c1">    # best_test_accuracy = log_test['test_accuracy']</span>
+
+df_train_log.to_csv('训练日志-训练集.csv', index=False)
+df_test_log.to_csv('训练日志-测试集.csv', index=False)</pre></div>
+<p>期待：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b65aa93a-13fc-417a-b72d-945b5b17098b"><img src="https://github.com/user-attachments/assets/b65aa93a-13fc-417a-b72d-945b5b17098b" alt="Image" style="max-width: 100%;"></a></p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://Corddt.github.io">Corddt</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","Corddt/Corddt.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
