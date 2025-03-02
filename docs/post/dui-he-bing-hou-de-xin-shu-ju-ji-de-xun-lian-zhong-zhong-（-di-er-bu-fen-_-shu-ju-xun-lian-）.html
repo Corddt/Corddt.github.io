@@ -254,7 +254,11 @@ lr_scheduler = lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)"""我使�
 df_train_log.to_csv('训练日志-训练集.csv', index=False)
 df_test_log.to_csv('训练日志-测试集.csv', index=False)</pre></div>
 <p>期待：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b65aa93a-13fc-417a-b72d-945b5b17098b"><img src="https://github.com/user-attachments/assets/b65aa93a-13fc-417a-b72d-945b5b17098b" alt="Image" style="max-width: 100%;"></a></p></div>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b65aa93a-13fc-417a-b72d-945b5b17098b"><img src="https://github.com/user-attachments/assets/b65aa93a-13fc-417a-b72d-945b5b17098b" alt="Image" style="max-width: 100%;"></a></p>
+<p>在这个等待的时候，我再说一下其他的。<br>
+在数据处理的图像清洗方面，我这两个分开进行。就是删除GIF和删除非三通道图像这个我分成了两步，异步处理。这样的好处是节约时间。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/e5a86dce-964e-4f32-aded-4f47340e2fa9"><img src="https://github.com/user-attachments/assets/e5a86dce-964e-4f32-aded-4f47340e2fa9" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/188258b7-f094-4b4d-9b91-697894e9d797"><img src="https://github.com/user-attachments/assets/188258b7-f094-4b4d-9b91-697894e9d797" alt="Image" style="max-width: 100%;"></a></p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
