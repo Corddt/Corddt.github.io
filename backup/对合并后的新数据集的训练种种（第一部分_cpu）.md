@@ -155,5 +155,14 @@ df.to_csv('数据量统计.csv', index=False)
 (base) ➜  PlantImage find /home/featurize/data/PlantImage_split/val -type d -empty -delete
 ```
 
-### 4、统计图像尺寸、比例分布（未完待续）
+### 4、统计图像尺寸、比例分布
+
+![Image](https://github.com/user-attachments/assets/2e0efbcd-e1c1-4367-9c22-3484ae03523b)
+
+![Image](https://github.com/user-attachments/assets/9b4206fe-46e9-4f3c-834b-eaa3e01c6aca)
+
+![Image](https://github.com/user-attachments/assets/a47ca858-435b-4f62-9051-f09dc7656361)
+
+
+
 
