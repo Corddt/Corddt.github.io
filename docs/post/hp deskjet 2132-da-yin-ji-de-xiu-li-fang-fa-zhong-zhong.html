@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="有一台型号比较旧的打印机，因为放置时间比较久，设备更新不及时，有一些功能无法正常运行，所以在做毕业设计的途中，我这两天顺便修理了一下，现在基本修理完毕了，把这个过程记录一下。">
+<meta property="og:title" content="hp deskjet 2132打印机的修理方法种种">
+<meta property="og:description" content="有一台型号比较旧的打印机，因为放置时间比较久，设备更新不及时，有一些功能无法正常运行，所以在做毕业设计的途中，我这两天顺便修理了一下，现在基本修理完毕了，把这个过程记录一下。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://Corddt.github.io/post/hp%20deskjet%202132-da-yin-ji-de-xiu-li-fang-fa-zhong-zhong.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>hp deskjet 2132打印机的修理方法种种</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">hp deskjet 2132打印机的修理方法种种</h1>
+<div class="title-right">
+    <a href="https://Corddt.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/Corddt/Corddt.github.io/issues/23" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>有一台型号比较旧的打印机，因为放置时间比较久，设备更新不及时，有一些功能无法正常运行，所以在做毕业设计的途中，我这两天顺便修理了一下，现在基本修理完毕了，把这个过程记录一下。</p>
+<h2>一、硬件上的修理</h2>
+<h3>1.1 打印机无法进纸</h3>
+<p>这个一开始感觉很奇怪，电脑这边提示卡纸，但是一点都不卡纸呀，心里恨不得想要拆掉打印机（后面也确实这样做了，不过拆到一半拆不动了又装回去了）。后面在bilibili上搜了<a href="https://www.bilibili.com/video/BV1VW4y167bz/" rel="nofollow">教程</a>，发现是因为进纸轮需要擦，所以我拿湿纸巾，喷了一点乒乓球的胶皮清洁剂，擦拭了一下，后面可以正常进纸了。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ccded983-7380-4103-9c6f-ddb34917e5f7"><img src="https://github.com/user-attachments/assets/ccded983-7380-4103-9c6f-ddb34917e5f7" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/d0d9726f-d922-4fca-98f5-870b3b932955"><img src="https://github.com/user-attachments/assets/d0d9726f-d922-4fca-98f5-870b3b932955" alt="Image" style="max-width: 100%;"></a></p>
+<h3>1.2 打印机可以进纸，但是打印了之后，出来啥都没有</h3>
+<p>在擦拭完进纸轮，可以进纸之后，我以为大功告成了。没想到这只是长征路上的第一步。<br>
+在电脑端点击打印之后，打出来一片空白。又反复试了几次，慢慢的出来了一些字，说明还是存在问题。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/e1d6cd53-3eec-499d-b719-92ed55fea3b5"><img src="https://github.com/user-attachments/assets/e1d6cd53-3eec-499d-b719-92ed55fea3b5" alt="Image" style="max-width: 100%;"></a></p>
+<p>我又去Bilibili查找解决方案，看到了这个<a href="https://www.bilibili.com/video/BV1h24y117Dk/" rel="nofollow">视频教程</a>。<br>
+跟着教程的步骤，我倒了一点水，然后把墨盒放上面，后面就好了。</p>
+<p>这是打印的校准页：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/3967fad4-721a-411a-9c65-4f631b4e8766"><img src="https://github.com/user-attachments/assets/3967fad4-721a-411a-9c65-4f631b4e8766" alt="Image" style="max-width: 100%;"></a></p>
+<p>看到这里，你是不是以为事情已经结束了？<br>
+没有这么简单。</p>
+<h2>二、软件上的修理</h2>
+<h3>2.1 第一次尝试</h3>
+<p>在打印完校准页之后，我就准备大显身手，找了一个文档，正式测试打印的效果。<br>
+文档可以正常打印，但是问题又来了。<br>
+出了什么问题呢？<br>
+问题就是，我打印完这个文档之后，在不断掉打印机电源的情况下，如果想要打印其它文档，完全没有办法打印。只能断掉打印机电源，然后重新启动，这样才能够打印，在这种情况下我判断可能是打印机驱动存在问题，一个我以为很好解决但是又花了我很长时间才解决的问题。<br>
+首先我去浏览器上搜索，尝试找相关驱动。找到一个这个：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/ba4629a1-8590-4160-ace1-7c557a5c8842"><img src="https://github.com/user-attachments/assets/ba4629a1-8590-4160-ace1-7c557a5c8842" alt="Image" style="max-width: 100%;"></a></p>
+<p>让我在微软商店安装HP Smart。</p>
+<p>我去安装了，看似可以正常打印，但是打印机依旧无法正常工作。问题和之前一样。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/01ce0526-ef61-44d3-908a-c7a18036a0b8"><img src="https://github.com/user-attachments/assets/01ce0526-ef61-44d3-908a-c7a18036a0b8" alt="Image" style="max-width: 100%;"></a></p>
+<h3>2.2 第二次尝试</h3>
+<p>我只能去网络上搜索其他解决办法。<br>
+经过查找，我发现官方有推荐安装这个：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/39021618-792e-41f3-9f2f-084d18709668"><img src="https://github.com/user-attachments/assets/39021618-792e-41f3-9f2f-084d18709668" alt="Image" style="max-width: 100%;"></a><br>
+链接：<a href="https://support.hp.com/cn-zh/drivers/hp-deskjet-2130-all-in-one-printer-series/model/7529634" rel="nofollow">https://support.hp.com/cn-zh/drivers/hp-deskjet-2130-all-in-one-printer-series/model/7529634</a></p>
+<p>但是下载后，依旧无法正常运行。所以我又尝试其他的解决办法。</p>
+<p>我经过查找，又碰到了这个<a href="https://h30471.www3.hp.com/t5/da-yin-ji-shi-yong-xiang-guan-wen-ti/hp-deskjet-2130-wu-fa-da-yin/m-p/1113725" rel="nofollow">帖子</a>，很高兴，以为碰到了真正的解决办法。</p>
+<p>但是失败。我卡在了第三步</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/576b5b5c-3a03-4e9c-ba76-6af7eccefda9"><img src="https://github.com/user-attachments/assets/576b5b5c-3a03-4e9c-ba76-6af7eccefda9" alt="Image" style="max-width: 100%;"></a><br>
+这个帖子的系统是mac，但我是windows，所以无法正常访问。<br>
+我只能尝试其他方法。（第二步的解压用360压缩软件就可以解压）</p>
+<h3>2.3第三次尝试</h3>
+<p>我因为偶然看到了那个端口，并且在查找的过程中偶然看到了这个帖子和我之前看到的端口相同，我以为我又遇见了真正的解决方案。<br>
+<a href="https://h30471.www3.hp.com/t5/da-yin-ji-shi-yong-xiang-guan-wen-ti/HP-DJ-2130-series-da-yin-de-shi-hou-xian-shi-da-yin-zhuang-tai-cuo-wu-wu-fa-da-yin-zhe-yang-de-wen-ti-gai-zen-me-jie-jue-ne/td-p/1300709" rel="nofollow">帖子</a><br>
+我卡在了这一步，运行后没有看到内部的.inf文件。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/52ce5e44-8be0-4cb9-87ac-b2d83eceb938"><img src="https://github.com/user-attachments/assets/52ce5e44-8be0-4cb9-87ac-b2d83eceb938" alt="Image" style="max-width: 100%;"></a><br>
+我解决完了才发现后面还有，</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/52b4a4ad-547f-4322-948d-4b3d6d6dd71c"><img src="https://github.com/user-attachments/assets/52b4a4ad-547f-4322-948d-4b3d6d6dd71c" alt="Image" style="max-width: 100%;"></a></p>
+<p>所以这个方法的具体效果未知。</p>
+<h3>2.4第四次尝试</h3>
+<p>我继续搜索，又搜到了这个<a href="https://h30471.www3.hp.com/t5/da-yin-ji-shi-yong-xiang-guan-wen-ti/hp-deskjet-2132wu-fa-da-yin-ce-shi-ye-jioffice-text-wen-jian/td-p/1078027" rel="nofollow">帖子</a>，这个帖子的问题描述是无法打印测试页，我测试了一下是否可以打印测试页，发现果然无法打印。虽然这个帖子最后也没有能够解决我的问题，但是让我开心的事情是，至少能够帮我更精确的定位问题所在。<br>
+这个帖子提出的解决方案和第三次的相同，所以当时我并未继续尝试，而是继续寻求其他方案。</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/1ca0b161-ee5c-4389-bf2c-44d3a5b7c4d6"><img src="https://github.com/user-attachments/assets/1ca0b161-ee5c-4389-bf2c-44d3a5b7c4d6" alt="Image" style="max-width: 100%;"></a></p>
+<h3>2.5 最终尝试</h3>
+<p>后面我又回到了b站，看看有什么解决方法，看到了这个<a href="https://www.bilibili.com/video/BV1qT4y1r739/?spm_id_from=333.337.search-card.all.click&amp;vd_source=348b4747c7e04cd236a0b05918dadc36" rel="nofollow">视频</a>,我并未尝试这个视频的解决方法前就突然解决了我的问题。但是我觉得这个视频里讲的方法确实是有价值的，虽然并不一定使用我现在的问题。<br>
+那么我是如何解决的呢？</p>
+<h3>2.6 解决的具体步骤</h3>
+<p>（1）设置里搜索"打印机和扫描仪"</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/fbbd72ee-3409-4b29-9614-7fa729476b75"><img src="https://github.com/user-attachments/assets/fbbd72ee-3409-4b29-9614-7fa729476b75" alt="Image" style="max-width: 100%;"></a></p>
+<p>选择这个并点击：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/036b7c55-4c02-4d8f-8a0c-718b7f143827"><img src="https://github.com/user-attachments/assets/036b7c55-4c02-4d8f-8a0c-718b7f143827" alt="Image" style="max-width: 100%;"></a></p>
+<p>跳转到这个页面：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/cb797d11-c1c9-4e66-8d71-9253eb433198"><img src="https://github.com/user-attachments/assets/cb797d11-c1c9-4e66-8d71-9253eb433198" alt="Image" style="max-width: 100%;"></a></p>
+<p>点击打印机属性：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/da9711c2-78a4-4e50-b341-df8765575018"><img src="https://github.com/user-attachments/assets/da9711c2-78a4-4e50-b341-df8765575018" alt="Image" style="max-width: 100%;"></a></p>
+<p>选择"高级"：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/b043703e-2201-41ae-849c-dc53a31119fc"><img src="https://github.com/user-attachments/assets/b043703e-2201-41ae-849c-dc53a31119fc" alt="Image" style="max-width: 100%;"></a></p>
+<p>点击"新驱动程序"：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/01071856-12c5-4ec2-b609-ab07b542b1b7"><img src="https://github.com/user-attachments/assets/01071856-12c5-4ec2-b609-ab07b542b1b7" alt="Image" style="max-width: 100%;"></a></p>
+<p>点击"下一页"：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/0285ecef-086f-402b-8196-ff30de4aad39"><img src="https://github.com/user-attachments/assets/0285ecef-086f-402b-8196-ff30de4aad39" alt="Image" style="max-width: 100%;"></a></p>
+<p>厂商选择"HP"，在右侧打印机一栏找到对应型号的打印机，然后双击：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8b10db98-4f0a-413e-94de-3838de8f1ea6"><img src="https://github.com/user-attachments/assets/8b10db98-4f0a-413e-94de-3838de8f1ea6" alt="Image" style="max-width: 100%;"></a></p>
+<p>跳转到这个页面：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/7988d5f8-dc46-4d66-9a2d-b4b29e074b18"><img src="https://github.com/user-attachments/assets/7988d5f8-dc46-4d66-9a2d-b4b29e074b18" alt="Image" style="max-width: 100%;"></a></p>
+<p>点击完成，然后等待一会，等驱动安装后，就可以正常打印了。</p>
+<p>以下是测试页：</p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a5936369-d4ee-4e2d-a28b-eeb4ddb5e268"><img src="https://github.com/user-attachments/assets/a5936369-d4ee-4e2d-a28b-eeb4ddb5e268" alt="Image" style="max-width: 100%;"></a></p>
+<p>现在，打印机就可以正常运行了。</p></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://Corddt.github.io">Corddt</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","Corddt/Corddt.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+
+
+</html>
