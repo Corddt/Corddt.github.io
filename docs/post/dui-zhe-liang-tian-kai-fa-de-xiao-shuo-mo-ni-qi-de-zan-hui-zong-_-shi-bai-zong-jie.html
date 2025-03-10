@@ -103,10 +103,14 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 16、请再次认真分析一下所有的内容，并确保充分理解含义</pre></div>
 <p>我通过这个联想到，是否可以构建一个系统，通过这个系统可以起到两个作用，第一个是仿真游戏界面，让用户更加得有沉浸感。第二个是控制大模型幻觉，把具体的一些数据通过本地存储的方式进行一些约束和控制，有点像是给大模型加一个RAG。<br>
 然后就开始了我的试验。</p>
-<h2>试验-"I am System"</h2>
+<h2>第一次试验-"I am System"</h2>
 <p><a href="https://github.com/Corddt/I-am-system">代码链接</a></p>
 <p>一开始想法很好，但是越往后，当代码量多起来之后，大模型就越来越不容易记住已经写好的代码，幻觉也越来越多。</p>
-<p>暂时是失败的。</p></div>
+<p>暂时是失败的。</p>
+<h2>第二次试验-"天道模拟器"</h2>
+<p>在第一次失败后，我改换了一下思路。<br>
+之前偶然在评论区看到过有人说：“可以先让DeepSeek生成一个总的大纲，然后再用claude 3.5 Sonnet去生成代码，因为3.5的代码能力比较强（当然，现在最强的已经是下一代，也就是3.7了）”<br>
+所以这个评论启发了我，我在想，可以采取这样一个策略，就是利用DeepSeek先不去开发，而是通过它先去对提示词本身进行优化调试，具体的调试方法，以前端为例，我考虑的是，<em>先用一个基本提示词，写出来之后，让DeepSeek描述一下根据这个提示词生成的那个页面长什么样子</em>（如果感觉文字描述太单调，可以把这个文字<em>给到claude,找claude去生成一个页面，看看好不好看</em>，如果不好看，看看哪里不好看，这个<em>不好看的点就是可以对提示词调试的方向</em>）</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
