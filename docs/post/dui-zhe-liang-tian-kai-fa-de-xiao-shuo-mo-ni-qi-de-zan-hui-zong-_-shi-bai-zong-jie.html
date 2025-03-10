@@ -110,7 +110,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h2>第二次试验-"天道模拟器"</h2>
 <p>在第一次失败后，我改换了一下思路。<br>
 之前偶然在评论区看到过有人说：“可以先让DeepSeek生成一个总的大纲，然后再用claude 3.5 Sonnet去生成代码，因为3.5的代码能力比较强（当然，现在最强的已经是下一代，也就是3.7了）”<br>
-所以这个评论启发了我，我在想，可以采取这样一个策略，就是利用DeepSeek先不去开发，而是通过它先去对提示词本身进行优化调试，具体的调试方法，以前端为例，我考虑的是，<em>先用一个基本提示词，写出来之后，让DeepSeek描述一下根据这个提示词生成的那个页面长什么样子</em>（如果感觉文字描述太单调，可以把这个文字<em>给到claude,找claude去生成一个页面，看看好不好看</em>，如果不好看，看看哪里不好看，这个<em>不好看的点就是可以对提示词调试的方向</em>）</p></div>
+所以这个评论启发了我，我在想，可以采取这样一个策略，就是利用DeepSeek先不去开发，而是通过它先去对提示词本身进行优化调试，具体的调试方法，以前端为例，我考虑的是，<strong>先用一个基本提示词，写出来之后，让DeepSeek描述一下根据这个提示词生成的那个页面长什么样子</strong>（如果感觉文字描述太单调，可以把这个文字<strong>给到claude,找claude去生成一个页面，看看好不好看</strong>，如果不好看，看看哪里不好看，这个<strong>不好看的点就是可以对提示词调试的方向</strong>）</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
