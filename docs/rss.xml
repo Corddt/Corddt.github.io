@@ -1,5 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Corddt</title><link>https://Corddt.github.io</link><description>以直觉为基础，以理性为保障</description><copyright>Corddt</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://Corddt.github.io</link></image><lastBuildDate>Sat, 15 Mar 2025 10:25:37 +0000</lastBuildDate><managingEditor>Corddt</managingEditor><ttl>60</ttl><webMaster>Corddt</webMaster><item><title>git教程汇总</title><link>https://Corddt.github.io/post/git-jiao-cheng-hui-zong.html</link><description># Git 使用教程
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Corddt</title><link>https://Corddt.github.io</link><description>以直觉为基础，以理性为保障</description><copyright>Corddt</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://Corddt.github.io</link></image><lastBuildDate>Sun, 16 Mar 2025 10:54:36 +0000</lastBuildDate><managingEditor>Corddt</managingEditor><ttl>60</ttl><webMaster>Corddt</webMaster><item><title>Ren'Py 背景图片全屏显示种种</title><link>https://Corddt.github.io/post/Ren%27Py%20-bei-jing-tu-pian-quan-ping-xian-shi-zhong-zhong.html</link><description>## 目录
+1. [简介](#简介)
+2. [实现方法](#实现方法)
+3. [代码示例](#代码示例)
+4. [图片准备建议](#图片准备建议)
+5. [自适应分辨率](#自适应分辨率)
+
+## 简介
+在Ren'Py视觉小说开发中，背景图片的显示效果对游戏体验至关重要。</description><guid isPermaLink="true">https://Corddt.github.io/post/Ren%27Py%20-bei-jing-tu-pian-quan-ping-xian-shi-zhong-zhong.html</guid><pubDate>Sun, 16 Mar 2025 10:54:06 +0000</pubDate></item><item><title>git教程汇总</title><link>https://Corddt.github.io/post/git-jiao-cheng-hui-zong.html</link><description># Git 使用教程
 
 ## 1. 初始化 Git 仓库
 
