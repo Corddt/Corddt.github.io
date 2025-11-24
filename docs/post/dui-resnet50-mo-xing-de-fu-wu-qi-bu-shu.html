@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://Corddt.github.io/post/dui-resnet50-mo-xing-de-fu-wu-qi-bu-shu.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
 <title>对resnet50模型的服务器部署</title>
-<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
 
 
 </head>
@@ -87,25 +87,26 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 具体的.pth模型训练流程参考这个<a href="https://www.bilibili.com/video/BV1Ng411C7WY?vd_source=348b4747c7e04cd236a0b05918dadc36&amp;spm_id_from=333.788.videopod.sections" rel="nofollow">视频</a>。</p>
 <p>首先，获取json文件。获取json文件的方式是将视频里的那个idx_to_labels.npy文件通过python脚本转化为json。<br>
 python脚本如下：</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">numpy</span> <span class="pl-k">as</span> <span class="pl-s1">np</span>
-<span class="pl-k">import</span> <span class="pl-s1">json</span>
+<pre lang="python" class="notranslate"><code class="notranslate">import numpy as np
+import json
 
-<span class="pl-c"># 加载npy文件</span>
-<span class="pl-s1">labels_to_idx</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">load</span>(<span class="pl-s">'labels_to_idx.npy'</span>, <span class="pl-s1">allow_pickle</span><span class="pl-c1">=</span><span class="pl-c1">True</span>).<span class="pl-c1">item</span>()
-<span class="pl-s1">idx_to_labels</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">load</span>(<span class="pl-s">'idx_to_labels.npy'</span>, <span class="pl-s1">allow_pickle</span><span class="pl-c1">=</span><span class="pl-c1">True</span>).<span class="pl-c1">item</span>()
+# 加载npy文件
+labels_to_idx = np.load('labels_to_idx.npy', allow_pickle=True).item()
+idx_to_labels = np.load('idx_to_labels.npy', allow_pickle=True).item()
 
-<span class="pl-c"># 转换为JSON格式并保存</span>
-<span class="pl-k">with</span> <span class="pl-en">open</span>(<span class="pl-s">'labels_to_idx.json'</span>, <span class="pl-s">'w'</span>, <span class="pl-s1">encoding</span><span class="pl-c1">=</span><span class="pl-s">'utf-8'</span>) <span class="pl-k">as</span> <span class="pl-s1">f</span>:
-    <span class="pl-s1">json</span>.<span class="pl-c1">dump</span>(<span class="pl-s1">labels_to_idx</span>, <span class="pl-s1">f</span>, <span class="pl-s1">ensure_ascii</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">indent</span><span class="pl-c1">=</span><span class="pl-c1">4</span>)
+# 转换为JSON格式并保存
+with open('labels_to_idx.json', 'w', encoding='utf-8') as f:
+    json.dump(labels_to_idx, f, ensure_ascii=False, indent=4)
 
-<span class="pl-k">with</span> <span class="pl-en">open</span>(<span class="pl-s">'idx_to_labels.json'</span>, <span class="pl-s">'w'</span>, <span class="pl-s1">encoding</span><span class="pl-c1">=</span><span class="pl-s">'utf-8'</span>) <span class="pl-k">as</span> <span class="pl-s1">f</span>:
-    <span class="pl-s1">json</span>.<span class="pl-c1">dump</span>(<span class="pl-s1">idx_to_labels</span>, <span class="pl-s1">f</span>, <span class="pl-s1">ensure_ascii</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">indent</span><span class="pl-c1">=</span><span class="pl-c1">4</span>)
+with open('idx_to_labels.json', 'w', encoding='utf-8') as f:
+    json.dump(idx_to_labels, f, ensure_ascii=False, indent=4)
 
-<span class="pl-c"># 查看转换后的内容</span>
-<span class="pl-en">print</span>(<span class="pl-s">"labels_to_idx的内容:"</span>)
-<span class="pl-en">print</span>(<span class="pl-s1">json</span>.<span class="pl-c1">dumps</span>(<span class="pl-s1">labels_to_idx</span>, <span class="pl-s1">ensure_ascii</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">indent</span><span class="pl-c1">=</span><span class="pl-c1">4</span>))
-<span class="pl-en">print</span>(<span class="pl-s">"<span class="pl-cce">\n</span>idx_to_labels的内容:"</span>)
-<span class="pl-en">print</span>(<span class="pl-s1">json</span>.<span class="pl-c1">dumps</span>(<span class="pl-s1">idx_to_labels</span>, <span class="pl-s1">ensure_ascii</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">indent</span><span class="pl-c1">=</span><span class="pl-c1">4</span>))</pre></div>
+# 查看转换后的内容
+print("labels_to_idx的内容:")
+print(json.dumps(labels_to_idx, ensure_ascii=False, indent=4))
+print("\nidx_to_labels的内容:")
+print(json.dumps(idx_to_labels, ensure_ascii=False, indent=4))
+</code></pre>
 <p>对.pth的转换，参考这个<a href="https://www.bilibili.com/video/BV1cM4y187Xc?vd_source=348b4747c7e04cd236a0b05918dadc36&amp;spm_id_from=333.788.videopod.sections" rel="nofollow">视频</a>。通过这个视频，就可以将.pth转换为ONNX格式。</p>
 <p>有了这两个之后，就可以正式进行部署了。<br>
 首先在Feature上新开一个服务器。</p>
@@ -116,107 +117,108 @@ python脚本如下：</p>
 <p>文件夹里有以下文件：</p>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/4ee07f03-7630-466a-ad9a-c04f146eee1f"><img src="https://github.com/user-attachments/assets/4ee07f03-7630-466a-ad9a-c04f146eee1f" alt="Image" style="max-width: 100%;"></a></p>
 <p>app.py的具体代码：</p>
-<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">fastapi</span> <span class="pl-k">import</span> <span class="pl-v">FastAPI</span>, <span class="pl-v">File</span>, <span class="pl-v">UploadFile</span>
-<span class="pl-k">from</span> <span class="pl-s1">fastapi</span>.<span class="pl-s1">middleware</span>.<span class="pl-s1">cors</span> <span class="pl-k">import</span> <span class="pl-v">CORSMiddleware</span>
-<span class="pl-k">import</span> <span class="pl-s1">numpy</span> <span class="pl-k">as</span> <span class="pl-s1">np</span>
-<span class="pl-k">import</span> <span class="pl-s1">onnxruntime</span> <span class="pl-k">as</span> <span class="pl-s1">ort</span>
-<span class="pl-k">from</span> <span class="pl-c1">PIL</span> <span class="pl-k">import</span> <span class="pl-v">Image</span>
-<span class="pl-k">import</span> <span class="pl-s1">io</span>
-<span class="pl-k">import</span> <span class="pl-s1">json</span>
-<span class="pl-k">import</span> <span class="pl-s1">scipy</span>.<span class="pl-s1">special</span>  <span class="pl-c"># 添加scipy.special用于softmax函数</span>
+<pre lang="python" class="notranslate"><code class="notranslate">from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+import numpy as np
+import onnxruntime as ort
+from PIL import Image
+import io
+import json
+import scipy.special  # 添加scipy.special用于softmax函数
 
-<span class="pl-s1">app</span> <span class="pl-c1">=</span> <span class="pl-en">FastAPI</span>(<span class="pl-s1">title</span><span class="pl-c1">=</span><span class="pl-s">"植物分类API 🌿"</span>)
+app = FastAPI(title="植物分类API 🌿")
 
-<span class="pl-c"># 允许跨域请求</span>
-<span class="pl-s1">app</span>.<span class="pl-c1">add_middleware</span>(
-    <span class="pl-v">CORSMiddleware</span>,
-    <span class="pl-s1">allow_origins</span><span class="pl-c1">=</span>[<span class="pl-s">"*"</span>],
-    <span class="pl-s1">allow_credentials</span><span class="pl-c1">=</span><span class="pl-c1">True</span>,
-    <span class="pl-s1">allow_methods</span><span class="pl-c1">=</span>[<span class="pl-s">"*"</span>],
-    <span class="pl-s1">allow_headers</span><span class="pl-c1">=</span>[<span class="pl-s">"*"</span>],
+# 允许跨域请求
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-<span class="pl-c"># 加载ONNX模型</span>
-<span class="pl-s1">model_path</span> <span class="pl-c1">=</span> <span class="pl-s">"resnet50_plant1391.onnx"</span>
-<span class="pl-c"># 修改后</span>
-<span class="pl-s1">ort_session</span> <span class="pl-c1">=</span> <span class="pl-s1">ort</span>.<span class="pl-c1">InferenceSession</span>(
-    <span class="pl-s1">model_path</span>,
-    <span class="pl-s1">providers</span><span class="pl-c1">=</span>[<span class="pl-s">'CPUExecutionProvider'</span>]  <span class="pl-c"># 或者根据报错信息使用 ['AzureExecutionProvider', 'CPUExecutionProvider']</span>
+# 加载ONNX模型
+model_path = "resnet50_plant1391.onnx"
+# 修改后
+ort_session = ort.InferenceSession(
+    model_path,
+    providers=['CPUExecutionProvider']  # 或者根据报错信息使用 ['AzureExecutionProvider', 'CPUExecutionProvider']
 )
 
-<span class="pl-c"># 加载标签映射</span>
-<span class="pl-k">with</span> <span class="pl-en">open</span>(<span class="pl-s">"resnet50_plant1391.json"</span>, <span class="pl-s">"r"</span>, <span class="pl-s1">encoding</span><span class="pl-c1">=</span><span class="pl-s">"utf-8"</span>) <span class="pl-k">as</span> <span class="pl-s1">f</span>:
-    <span class="pl-s1">idx_to_labels</span> <span class="pl-c1">=</span> <span class="pl-s1">json</span>.<span class="pl-c1">load</span>(<span class="pl-s1">f</span>)
+# 加载标签映射
+with open("resnet50_plant1391.json", "r", encoding="utf-8") as f:
+    idx_to_labels = json.load(f)
 
-<span class="pl-c"># 图像预处理函数</span>
-<span class="pl-k">def</span> <span class="pl-en">preprocess_image</span>(<span class="pl-s1">image</span>):
-    <span class="pl-c"># 调整图像大小为256x256</span>
-    <span class="pl-s1">image</span> <span class="pl-c1">=</span> <span class="pl-s1">image</span>.<span class="pl-c1">resize</span>((<span class="pl-c1">256</span>, <span class="pl-c1">256</span>))
-    <span class="pl-c"># 转换为numpy数组并明确指定float32类型</span>
-    <span class="pl-s1">img_array</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">array</span>(<span class="pl-s1">image</span>).<span class="pl-c1">astype</span>(<span class="pl-s1">np</span>.<span class="pl-c1">float32</span>)
-    <span class="pl-c"># 转换为BatchxChannelxHeightxWidth格式</span>
-    <span class="pl-s1">img_array</span> <span class="pl-c1">=</span> <span class="pl-s1">img_array</span>.<span class="pl-c1">transpose</span>(<span class="pl-c1">2</span>, <span class="pl-c1">0</span>, <span class="pl-c1">1</span>)
-    <span class="pl-c"># 增加批次维度</span>
-    <span class="pl-s1">img_array</span> <span class="pl-c1">=</span> <span class="pl-s1">img_array</span>[<span class="pl-s1">np</span>.<span class="pl-c1">newaxis</span>, ...]
-    <span class="pl-c"># 归一化(假设模型期望输入范围为0-1)</span>
-    <span class="pl-s1">img_array</span> <span class="pl-c1">=</span> <span class="pl-s1">img_array</span> <span class="pl-c1">/</span> <span class="pl-c1">255.0</span>
+# 图像预处理函数
+def preprocess_image(image):
+    # 调整图像大小为256x256
+    image = image.resize((256, 256))
+    # 转换为numpy数组并明确指定float32类型
+    img_array = np.array(image).astype(np.float32)
+    # 转换为BatchxChannelxHeightxWidth格式
+    img_array = img_array.transpose(2, 0, 1)
+    # 增加批次维度
+    img_array = img_array[np.newaxis, ...]
+    # 归一化(假设模型期望输入范围为0-1)
+    img_array = img_array / 255.0
     
-    <span class="pl-c"># 确保使用float32类型的数组进行归一化</span>
-    <span class="pl-s1">mean</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">array</span>([<span class="pl-c1">0.485</span>, <span class="pl-c1">0.456</span>, <span class="pl-c1">0.406</span>], <span class="pl-s1">dtype</span><span class="pl-c1">=</span><span class="pl-s1">np</span>.<span class="pl-c1">float32</span>).<span class="pl-c1">reshape</span>(<span class="pl-c1">1</span>, <span class="pl-c1">3</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>)
-    <span class="pl-s1">std</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">array</span>([<span class="pl-c1">0.229</span>, <span class="pl-c1">0.224</span>, <span class="pl-c1">0.225</span>], <span class="pl-s1">dtype</span><span class="pl-c1">=</span><span class="pl-s1">np</span>.<span class="pl-c1">float32</span>).<span class="pl-c1">reshape</span>(<span class="pl-c1">1</span>, <span class="pl-c1">3</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>)
-    <span class="pl-s1">img_array</span> <span class="pl-c1">=</span> (<span class="pl-s1">img_array</span> <span class="pl-c1">-</span> <span class="pl-s1">mean</span>) <span class="pl-c1">/</span> <span class="pl-s1">std</span>
+    # 确保使用float32类型的数组进行归一化
+    mean = np.array([0.485, 0.456, 0.406], dtype=np.float32).reshape(1, 3, 1, 1)
+    std = np.array([0.229, 0.224, 0.225], dtype=np.float32).reshape(1, 3, 1, 1)
+    img_array = (img_array - mean) / std
     
-    <span class="pl-c"># 最后再次确保类型是float32</span>
-    <span class="pl-k">return</span> <span class="pl-s1">img_array</span>.<span class="pl-c1">astype</span>(<span class="pl-s1">np</span>.<span class="pl-c1">float32</span>)
+    # 最后再次确保类型是float32
+    return img_array.astype(np.float32)
 
-<span class="pl-en">@<span class="pl-s1">app</span>.<span class="pl-c1">post</span>(<span class="pl-s">"/predict"</span>)</span>
-<span class="pl-k">async</span> <span class="pl-k">def</span> <span class="pl-en">predict</span>(<span class="pl-s1">file</span>: <span class="pl-smi">UploadFile</span> <span class="pl-c1">=</span> <span class="pl-en">File</span>(...)):
-    <span class="pl-k">try</span>:
-        <span class="pl-c"># 读取上传的图片</span>
-        <span class="pl-s1">content</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">file</span>.<span class="pl-c1">read</span>()
-        <span class="pl-s1">image</span> <span class="pl-c1">=</span> <span class="pl-v">Image</span>.<span class="pl-c1">open</span>(<span class="pl-s1">io</span>.<span class="pl-c1">BytesIO</span>(<span class="pl-s1">content</span>)).<span class="pl-c1">convert</span>(<span class="pl-s">"RGB"</span>)
+@app.post("/predict")
+async def predict(file: UploadFile = File(...)):
+    try:
+        # 读取上传的图片
+        content = await file.read()
+        image = Image.open(io.BytesIO(content)).convert("RGB")
         
-        <span class="pl-c"># 预处理图像</span>
-        <span class="pl-s1">input_data</span> <span class="pl-c1">=</span> <span class="pl-en">preprocess_image</span>(<span class="pl-s1">image</span>)
+        # 预处理图像
+        input_data = preprocess_image(image)
         
-        <span class="pl-c"># 运行推理</span>
-        <span class="pl-s1">outputs</span> <span class="pl-c1">=</span> <span class="pl-s1">ort_session</span>.<span class="pl-c1">run</span>(<span class="pl-c1">None</span>, {<span class="pl-s">"input"</span>: <span class="pl-s1">input_data</span>})
+        # 运行推理
+        outputs = ort_session.run(None, {"input": input_data})
         
-        <span class="pl-c"># 将logits转换为概率 - 使用softmax函数</span>
-        <span class="pl-s1">probabilities</span> <span class="pl-c1">=</span> <span class="pl-s1">scipy</span>.<span class="pl-c1">special</span>.<span class="pl-c1">softmax</span>(<span class="pl-s1">outputs</span>[<span class="pl-c1">0</span>][<span class="pl-c1">0</span>])
+        # 将logits转换为概率 - 使用softmax函数
+        probabilities = scipy.special.softmax(outputs[0][0])
         
-        <span class="pl-c"># 处理结果</span>
-        <span class="pl-s1">class_idx</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">argmax</span>(<span class="pl-s1">probabilities</span>)
-        <span class="pl-s1">confidence</span> <span class="pl-c1">=</span> <span class="pl-en">float</span>(<span class="pl-s1">probabilities</span>[<span class="pl-s1">class_idx</span>])
-        <span class="pl-s1">class_name</span> <span class="pl-c1">=</span> <span class="pl-s1">idx_to_labels</span>.<span class="pl-c1">get</span>(<span class="pl-en">str</span>(<span class="pl-s1">class_idx</span>), <span class="pl-s">"未知类别"</span>)
+        # 处理结果
+        class_idx = np.argmax(probabilities)
+        confidence = float(probabilities[class_idx])
+        class_name = idx_to_labels.get(str(class_idx), "未知类别")
         
-        <span class="pl-c"># 获取前5个最可能的类别</span>
-        <span class="pl-s1">top5_indices</span> <span class="pl-c1">=</span> <span class="pl-s1">np</span>.<span class="pl-c1">argsort</span>(<span class="pl-s1">probabilities</span>)[<span class="pl-c1">-</span><span class="pl-c1">5</span>:][::<span class="pl-c1">-</span><span class="pl-c1">1</span>]
-        <span class="pl-s1">top5_results</span> <span class="pl-c1">=</span> [
+        # 获取前5个最可能的类别
+        top5_indices = np.argsort(probabilities)[-5:][::-1]
+        top5_results = [
             {
-                <span class="pl-s">"class_name"</span>: <span class="pl-s1">idx_to_labels</span>.<span class="pl-c1">get</span>(<span class="pl-en">str</span>(<span class="pl-s1">idx</span>), <span class="pl-s">"未知类别"</span>),
-                <span class="pl-s">"confidence"</span>: <span class="pl-en">float</span>(<span class="pl-s1">probabilities</span>[<span class="pl-s1">idx</span>])
+                "class_name": idx_to_labels.get(str(idx), "未知类别"),
+                "confidence": float(probabilities[idx])
             }
-            <span class="pl-k">for</span> <span class="pl-s1">idx</span> <span class="pl-c1">in</span> <span class="pl-s1">top5_indices</span>
+            for idx in top5_indices
         ]
         
-        <span class="pl-k">return</span> {
-            <span class="pl-s">"prediction"</span>: <span class="pl-s1">class_name</span>,
-            <span class="pl-s">"confidence"</span>: <span class="pl-s1">confidence</span>,
-            <span class="pl-s">"top5_results"</span>: <span class="pl-s1">top5_results</span>
+        return {
+            "prediction": class_name,
+            "confidence": confidence,
+            "top5_results": top5_results
         }
     
-    <span class="pl-k">except</span> <span class="pl-v">Exception</span> <span class="pl-k">as</span> <span class="pl-s1">e</span>:
-        <span class="pl-k">return</span> {<span class="pl-s">"error"</span>: <span class="pl-en">str</span>(<span class="pl-s1">e</span>)}
+    except Exception as e:
+        return {"error": str(e)}
 
-<span class="pl-en">@<span class="pl-s1">app</span>.<span class="pl-c1">get</span>(<span class="pl-s">"/"</span>)</span>
-<span class="pl-k">def</span> <span class="pl-en">read_root</span>():
-    <span class="pl-k">return</span> {<span class="pl-s">"message"</span>: <span class="pl-s">"植物分类API服务正在运行，请使用/predict端点上传图片进行识别"</span>}
+@app.get("/")
+def read_root():
+    return {"message": "植物分类API服务正在运行，请使用/predict端点上传图片进行识别"}
 
-<span class="pl-c"># 获取所有支持的植物类别</span>
-<span class="pl-en">@<span class="pl-s1">app</span>.<span class="pl-c1">get</span>(<span class="pl-s">"/categories"</span>)</span>
-<span class="pl-k">def</span> <span class="pl-en">get_categories</span>():
-    <span class="pl-k">return</span> {<span class="pl-s">"categories"</span>: <span class="pl-en">list</span>(<span class="pl-s1">idx_to_labels</span>.<span class="pl-c1">values</span>())}</pre></div>
+# 获取所有支持的植物类别
+@app.get("/categories")
+def get_categories():
+    return {"categories": list(idx_to_labels.values())}
+</code></pre>
 <p>requirements.txt的具体代码：</p>
 <pre class="notranslate"><code class="notranslate">fastapi==0.104.1
 uvicorn==0.24.0
