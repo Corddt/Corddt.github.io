@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://Corddt.github.io/post/ji-yu-diao-shi-hou-ti-shi-ci-ji-cheng-RAG-de-ruan-jian-kai-fa-fang-fa.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
 <title>基于调试后提示词集成RAG的软件开发方法</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -119,14 +119,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <h4>2.2.1 提示词知识库</h4>
 <ul>
 <li><strong>结构化存储</strong>：采用树状结构组织提示词版本
-<pre lang="json" class="notranslate"><code class="notranslate">{
-  "base_prompt": "生成响应式网页布局",
-  "variants": [
-    {"v1.2": "使用Flexbox实现三栏布局..."},
-    {"v2.1": "结合CSS Grid实现自适应..."}
+<div class="highlight highlight-source-json"><pre class="notranslate">{
+  <span class="pl-ent">"base_prompt"</span>: <span class="pl-s"><span class="pl-pds">"</span>生成响应式网页布局<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"variants"</span>: [
+    {<span class="pl-ent">"v1.2"</span>: <span class="pl-s"><span class="pl-pds">"</span>使用Flexbox实现三栏布局...<span class="pl-pds">"</span></span>},
+    {<span class="pl-ent">"v2.1"</span>: <span class="pl-s"><span class="pl-pds">"</span>结合CSS Grid实现自适应...<span class="pl-pds">"</span></span>}
   ]
-}
-</code></pre>
+}</pre></div>
 </li>
 <li><strong>动态检索机制</strong>：基于语义相似度的向量检索算法</li>
 </ul>
@@ -137,45 +136,43 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ol>
 <h4>2.2.3 质量评估系统</h4>
 <p>建立多维评估矩阵：</p>
-<pre lang="mermaid" class="notranslate"><code class="notranslate">graph TD
-    A[功能性] --&gt; B[代码正确性]
-    A --&gt; C[布局合理性]
-    D[美观性] --&gt; E[色彩对比度]
-    D --&gt; F[视觉层次感]
-    G[性能] --&gt; H[加载速度]
-    G --&gt; I[资源优化]
-</code></pre>
+<div class="highlight highlight-source-mermaid"><pre class="notranslate"><span class="pl-k">graph</span> <span class="pl-c1">TD</span>
+    <span class="pl-ent">A</span><span class="pl-s"><span class="pl-pds"><span class="pl-sg">[</span></span>功能性<span class="pl-pds"><span class="pl-sg">]</span></span></span> <span class="pl-k">--&gt;</span> <span class="pl-ent">B</span><span class="pl-s"><span class="pl-pds"><span class="pl-sg">[</span></span>代码正确性<span class="pl-pds"><span class="pl-sg">]</span></span></span>
+    <span class="pl-ent">A</span> <span class="pl-k">--&gt;</span> <span class="pl-ent">C</span><span class="pl-s"><span class="pl-pds"><span class="pl-sg">[</span></span>布局合理性<span class="pl-pds"><span class="pl-sg">]</span></span></span>
+    <span class="pl-ent">D</span><span class="pl-s"><span class="pl-pds"><span class="pl-sg">[</span></span>美观性<span class="pl-pds"><span class="pl-sg">]</span></span></span> <span class="pl-k">--&gt;</span> <span class="pl-ent">E</span><span class="pl-s"><span class="pl-pds"><span class="pl-sg">[</span></span>色彩对比度<span class="pl-pds"><span class="pl-sg">]</span></span></span>
+    <span class="pl-ent">D</span> <span class="pl-k">--&gt;</span> <span class="pl-ent">F</span><span class="pl-s"><span class="pl-pds"><span class="pl-sg">[</span></span>视觉层次感<span class="pl-pds"><span class="pl-sg">]</span></span></span>
+    <span class="pl-ent">G</span><span class="pl-s"><span class="pl-pds"><span class="pl-sg">[</span></span>性能<span class="pl-pds"><span class="pl-sg">]</span></span></span> <span class="pl-k">--&gt;</span> <span class="pl-ent">H</span><span class="pl-s"><span class="pl-pds"><span class="pl-sg">[</span></span>加载速度<span class="pl-pds"><span class="pl-sg">]</span></span></span>
+    <span class="pl-ent">G</span> <span class="pl-k">--&gt;</span> <span class="pl-ent">I</span><span class="pl-s"><span class="pl-pds"><span class="pl-sg">[</span></span>资源优化<span class="pl-pds"><span class="pl-sg">]</span></span></span></pre></div>
 <hr>
 <h2>三、核心工作流程</h2>
 <h3>3.1 自动化生成迭代管道</h3>
-<pre lang="python" class="notranslate"><code class="notranslate">class CICDPipeline:
-    def __init__(self, base_prompt):
-        self.knowledge_base = PromptKB()
-        self.evaluator = MultiModalEvaluator()
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">class</span> <span class="pl-v">CICDPipeline</span>:
+    <span class="pl-k">def</span> <span class="pl-en">__init__</span>(<span class="pl-s1">self</span>, <span class="pl-s1">base_prompt</span>):
+        <span class="pl-s1">self</span>.<span class="pl-c1">knowledge_base</span> <span class="pl-c1">=</span> <span class="pl-en">PromptKB</span>()
+        <span class="pl-s1">self</span>.<span class="pl-c1">evaluator</span> <span class="pl-c1">=</span> <span class="pl-en">MultiModalEvaluator</span>()
         
-    def run(self):
-        while True:
-            # 阶段1：提示词增强
-            enhanced_prompt = self.knowledge_base.retrieve(base_prompt)
+    <span class="pl-k">def</span> <span class="pl-en">run</span>(<span class="pl-s1">self</span>):
+        <span class="pl-k">while</span> <span class="pl-c1">True</span>:
+            <span class="pl-c"># 阶段1：提示词增强</span>
+            <span class="pl-s1">enhanced_prompt</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-c1">knowledge_base</span>.<span class="pl-c1">retrieve</span>(<span class="pl-s1">base_prompt</span>)
             
-            # 阶段2：多模型生成
-            deepseek_output = DeepSeek.generate(enhanced_prompt)
-            claude_html = Claude.render(deepseek_output)
+            <span class="pl-c"># 阶段2：多模型生成</span>
+            <span class="pl-s1">deepseek_output</span> <span class="pl-c1">=</span> <span class="pl-v">DeepSeek</span>.<span class="pl-c1">generate</span>(<span class="pl-s1">enhanced_prompt</span>)
+            <span class="pl-s1">claude_html</span> <span class="pl-c1">=</span> <span class="pl-v">Claude</span>.<span class="pl-c1">render</span>(<span class="pl-s1">deepseek_output</span>)
             
-            # 阶段3：自动化评估
-            score_report = self.evaluator.analyze(
-                code=deepseek_output, 
-                design=claude_html
+            <span class="pl-c"># 阶段3：自动化评估</span>
+            <span class="pl-s1">score_report</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-c1">evaluator</span>.<span class="pl-c1">analyze</span>(
+                <span class="pl-s1">code</span><span class="pl-c1">=</span><span class="pl-s1">deepseek_output</span>, 
+                <span class="pl-s1">design</span><span class="pl-c1">=</span><span class="pl-s1">claude_html</span>
             )
             
-            # 阶段4：反馈优化
-            if score_report.total &lt; 0.85:
-                new_variant = self.optimizer.adjust(
-                    current_prompt=enhanced_prompt,
-                    feedback=score_report
+            <span class="pl-c"># 阶段4：反馈优化</span>
+            <span class="pl-k">if</span> <span class="pl-s1">score_report</span>.<span class="pl-c1">total</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">0.85</span>:
+                <span class="pl-s1">new_variant</span> <span class="pl-c1">=</span> <span class="pl-s1">self</span>.<span class="pl-c1">optimizer</span>.<span class="pl-c1">adjust</span>(
+                    <span class="pl-s1">current_prompt</span><span class="pl-c1">=</span><span class="pl-s1">enhanced_prompt</span>,
+                    <span class="pl-s1">feedback</span><span class="pl-c1">=</span><span class="pl-s1">score_report</span>
                 )
-                self.knowledge_base.commit(new_variant)
-</code></pre>
+                <span class="pl-s1">self</span>.<span class="pl-c1">knowledge_base</span>.<span class="pl-c1">commit</span>(<span class="pl-s1">new_variant</span>)</pre></div>
 <h3>3.2 关键技术创新点</h3>
 <h4>3.2.1 视觉化评估反馈</h4>
 <p>通过Claude生成的页面原型，实施自动化UI检测：</p>
@@ -186,10 +183,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </ul>
 <h4>3.2.2 提示词差分调试</h4>
 <p>开发专用调试工具PromptDiff：</p>
-<pre lang="diff" class="notranslate"><code class="notranslate">- 使用红色作为主色调
-+ 采用#FF6B6B作为主色，搭配#4ECDC4作为辅助色
-! 色彩对比度从2.3提升至4.5
-</code></pre>
+<div class="highlight highlight-source-diff"><pre class="notranslate"><span class="pl-md"><span class="pl-md">-</span> 使用红色作为主色调</span>
+<span class="pl-mi1"><span class="pl-mi1">+</span> 采用#FF6B6B作为主色，搭配#4ECDC4作为辅助色</span>
+<span class="pl-mc"><span class="pl-mc">!</span> 色彩对比度从2.3提升至4.5</span></pre></div>
 <hr>
 <h2>四、工程实践方案</h2>
 <h3>4.1 持续集成体系设计</h3>
