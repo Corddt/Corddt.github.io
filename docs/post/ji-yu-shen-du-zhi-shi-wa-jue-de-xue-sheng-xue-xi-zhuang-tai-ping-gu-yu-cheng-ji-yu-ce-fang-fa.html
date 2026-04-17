@@ -78,7 +78,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="markdown-body" id="postBody"><h2>摘要</h2>
 <p>本文提出了一种基于深度知识挖掘的学生学习状态评估方法，旨在通过分析学生对已学知识的掌握深度，预测其在特定学科的考试成绩。该方法通过初始测试、订正学习、深度知识点挖掘和二次问卷评估，结合对掌握率的非线性量化（基于对数函数），实现对学生理解深度的精细评估</p>
 <p>核心公式为</p>
-<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/f226c98c-6d3e-4951-a005-3b9c45abc9c3"><img width="500" height="94" alt="Image" src="https://github.com/user-attachments/assets/f226c98c-6d3e-4951-a005-3b9c45abc9c3" style="max-width: 100%; height: auto; max-height: 94px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/f226c98c-6d3e-4951-a005-3b9c45abc9c3"><img width="500" height="94" alt="Image" src="https://github.com/user-attachments/assets/f226c98c-6d3e-4951-a005-3b9c45abc9c3" style="max-width: 100%; height: auto; max-height: 94px;; aspect-ratio: 500 / 94; background-color: var(--bgColor-muted); border-radius: 6px; display: block" class="js-gh-image-fallback"></a></p>
 <p>，其中p为掌握率，用于直观量化知识缺失的深度梯度；成绩预测则结合学科权重，形成“基础分+能力分”的综合模型。本方法可为个性化教育和学习干预提供数据支持。</p>
 <h2>1. 引言</h2>
 <p>传统的学习评估方法通常依赖考试分数，难以揭示学生对知识的深层理解程度。尤其在标准化测试中，学生可能通过表面记忆或模式识别答对题目，却忽略了出题者意图考察的深层知识点。本文提出一种新型评估方法，通过对已学知识的深度挖掘和二次测试，以“掌握率+深度梯度”双指标量化学生的掌握深度，并结合学科特性预测其潜在考试成绩。该方法结合人工智能（AI）技术，适合现代教育场景下的精准教学需求。</p>
@@ -97,7 +97,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>用1减去掌握率p，得到的结果就是学生没掌握的知识比例。但这个比例只能体现“没掌握多少”，没法直接说明“没掌握的知识有多深”——比如掌握率从90%降到80%，看似只少了10%，但背后其实是学生遗漏了跟这些知识点相关的深层内容，这种“深度漏洞”需要专门的量化方式才能说清楚，最终会通过一个“梯度值”把它直观地呈现出来。</p>
 <h3>3.2 深度缺失量化公式</h3>
 <p>为精准捕捉“掌握率与知识深度漏洞”的反向关联，本文采用你提出的核心公式，通过固定系数与对数函数结合，量化深度梯度值S越大，代表知识深度缺失越严重），公式如下：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/3b0e7dd2-fe27-4bb8-ac3e-35f2e8e4c1f5"><img width="500" height="94" alt="Image" src="https://github.com/user-attachments/assets/3b0e7dd2-fe27-4bb8-ac3e-35f2e8e4c1f5" style="max-width: 100%; height: auto; max-height: 94px;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/3b0e7dd2-fe27-4bb8-ac3e-35f2e8e4c1f5"><img width="500" height="94" alt="Image" src="https://github.com/user-attachments/assets/3b0e7dd2-fe27-4bb8-ac3e-35f2e8e4c1f5" style="max-width: 100%; height: auto; max-height: 94px;; aspect-ratio: 500 / 94; background-color: var(--bgColor-muted); border-radius: 6px; display: block" class="js-gh-image-fallback"></a></p>
 <p>其中：</p>
 <ul>
 <li>掌握率p：指学生在二次问卷中的正确率，数值范围在0到1之间。这个数值能直接体现学生对深层知识点的掌握范围和广度，比如p=0.8就代表学生掌握了80%的深层知识点。</li>
